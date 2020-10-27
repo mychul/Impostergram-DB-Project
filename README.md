@@ -1,5 +1,5 @@
 # Impostergram-DB-Project
- CS 179g project Fall 2020
+CS 179g project Fall 2020
 Michael Chiang 861126014
 Tinh La
 Mingi Lee
