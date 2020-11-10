@@ -1,5 +1,6 @@
 #!/bin/bash
-folder=/home/team2/Documents/CS179g/project
+folder=/home/team2/Documents/CS179g/project #Tinh
+#folder=/home/mingi-lee/Documents/CS179G
 PGDATA=$folder/data
 PGSOCKETS=$folder/sockets
 export PGDATA
