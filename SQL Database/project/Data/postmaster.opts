@@ -1,0 +1,1 @@
+/usr/lib/postgresql/12/bin/postgres "-D" "/home/team2/Documents/CS179g/project/data" "-c" "unix_socket_directories=/home/team2/Documents/CS179g/project/sockets"
