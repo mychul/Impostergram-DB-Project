@@ -6,6 +6,3 @@ Mingi Lee
 
 ## ER Diagram
 ![CS 179G ER Diagram](https://github.com/mychiang13/Impostergram-DB-Project/blob/main/images/CS%20179G%20ER%20Diagram.png)
-
-## Light UML Diagram
-![Light UML Diagram](https://github.com/mychiang13/Impostergram-DB-Project/blob/main/images/CS%20179G%20Design%20Diagram.png)
