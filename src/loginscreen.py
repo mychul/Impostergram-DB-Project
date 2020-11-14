@@ -1,4 +1,6 @@
 #imports ...
+from postdb import postdb
+
 
 print("Welcome to Impostergram\nPlease log in.")
 loop=True
@@ -13,6 +15,7 @@ while loop:
         #go to user menu class
         #pass along user token i.e. Username/Password
         #as they should only be allowed to do tasks related to their account
+        #valid_login = post.login(username,password)
     else:
         print("Invalid information entered. Would you like to try again?")
         con=input("(Y/N):")
