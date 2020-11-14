@@ -1,6 +1,6 @@
 import psycopg2
 
-class post_sever:
+class tagged:
     def __init__(self):
         conn=None
         try:
