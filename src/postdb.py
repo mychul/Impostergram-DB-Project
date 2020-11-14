@@ -23,7 +23,7 @@ class post_sever:
         validity=False
         try:
             cur=self.conn.cursor()
-            cur.execute("SELECT %s,%s")
+            cur.execute("SELECT username, pass FROM Users WHERE username = %s, pass =%s",(u_name,u_pass))
         except (Exception,psycopg2.DatabaseError) as error:
             print(error)
         finally:
