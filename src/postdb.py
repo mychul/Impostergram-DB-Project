@@ -14,6 +14,5 @@ class post_db:
             
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
-            
 
 
