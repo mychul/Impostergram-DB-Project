@@ -24,7 +24,8 @@ class tagged:
                             self.cur.close()
                             print("Closing cursor")
                         if self.post.conn is not None:
-                            self.post.conn.close()                   
+                            self.post.conn.close()     
+                        del self.post              
                 if validity: 
                     self.cur.execute("INSERT INTO Tagged (username,photo_id) VALUES (%s, %s)", (username, self.__photo_id))
                     if self.cur is not None:
@@ -33,6 +34,7 @@ class tagged:
                     if self.post.conn is not None:
                         self.post.conn.close()
                         # print("Closing database connection")
+                    del self.post
                     return
             except (Exception,psycopg2.DatabaseError) as error:
                 print(error)
@@ -41,6 +43,7 @@ class tagged:
                     print("Closing cursor")
                 if self.post.conn is not None:
                     self.post.conn.close()
+                del self.post
                 return
                     # print("Closing database connection")
         return
