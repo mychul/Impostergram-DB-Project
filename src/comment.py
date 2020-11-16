@@ -7,18 +7,21 @@ class comment:
         post = post_db()
         cur = post.conn.cursor()
    
-    # Let user menu worry about the 'would you like to enter another comment
+    # Let user menu worry about the 'would you like to enter another comment'
     def commented(self):
         validity=False
         try:
+            comment_id = 0
             check = True
             while(check):
                 comment = input("Please enter your comment: ")
                 choice = input("Comfirm comment: <" + comment + "> (Y/N): ")
                 if(choice == "Y" or choice == "y"):
                     check = False
-                    self.cur.execute("")
-                    self.cur.execute("INSERT INTO Comments (username,photo_id) VALUES (%s, %s)", (username, self.__photo_id))
+                    self.cur.execute("SELECT MAX(comment_id) FROM Comments")
+                    comment_id = self.cur.fetchone()
+                    comment_id = comment_id + 1
+                    self.cur.execute("INSERT INTO Comments (comment_id, comments, username, photo_id) VALUES (%s, %s)", (username, self.__photo_id))
                 elif(choice == 'N' or choice == 'n'):
                     check = True
                     comment = ''
