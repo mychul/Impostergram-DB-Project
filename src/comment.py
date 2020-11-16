@@ -44,6 +44,5 @@ class comment:
             if self.post.conn is not None:
                 self.post.conn.close()
             del self.post
-            lopp = False
-                # print("Closing database connection")
+            # print("Closing database connection")
         return
