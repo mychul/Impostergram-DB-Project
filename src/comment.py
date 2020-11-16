@@ -4,6 +4,7 @@ from postdb import post_db
 class comment:
     def __init__(self, username, photo_id):
         __photo_id = photo_id
+        __username = username
         post = post_db()
         cur = post.conn.cursor()
    
@@ -21,7 +22,8 @@ class comment:
                     self.cur.execute("SELECT MAX(comment_id) FROM Comments")
                     comment_id = self.cur.fetchone()
                     comment_id = comment_id + 1
-                    self.cur.execute("INSERT INTO Comments (comment_id, comments, username, photo_id) VALUES (%s, %s)", (username, self.__photo_id))
+                    self.cur.execute("INSERT INTO Comments (comment_id, comments, username, photo_id) VALUES (%s, %s, %s, %s)", (comment_id, comment, self.__username, self.__photo_id))
+                    self.post.conn.commit()
                 elif(choice == 'N' or choice == 'n'):
                     check = True
                     comment = ''
