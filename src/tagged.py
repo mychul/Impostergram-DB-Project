@@ -12,13 +12,13 @@ class tagged:
         loop = True
         while(loop):
             try:
-                username = input('Please enter a username: ')
+                username = input("Please enter a username: ")
                 self.cur.execute("SELECT username FROM Users WHERE username = %s", (username))
                 if self.cur.rowcount > 0:
                     validity = True
                 else: 
                     choice = input('User not found.\nWould you like to try again? (Y/N): ')
-                    if (choice == 'N' or choice == 'n'):
+                    if (choice == "N" or choice == "n"):
                         loop = False
                         if self.cur is not None:
                             self.cur.close()
