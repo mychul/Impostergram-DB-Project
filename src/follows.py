@@ -7,17 +7,6 @@ class follows:
         post = post_db()
         cur = post.conn.cursor()
         conn = None
-        try:   
-            conn = psycopg2.connect(
-                host = "localhost",
-                database = "impostergram_db"
-                user = "postgres"
-                password = "postgres"
-            )
-        except(Exception, psycopg2.DatabaseError) as error:
-            print(error)
-        finally:
-            pass
             
     def addFollow(self):
         validity = False
@@ -25,33 +14,33 @@ class follows:
             while(not validity):
                 u_name2 = input("Please enter a username to follow : ")
 #                cur = self.conn.cursor()
-                cur.execute("SELECT username FROM Users WHERE username = %s",(u_name2))
-                if cur.rowcount > 0:
+                self.cur.execute("SELECT username FROM Users WHERE username = %s",(u_name2))
+                if self.cur.rowcount > 0:
                     validity = True
                 else:
                     print("That username does not exist!")
                     repeat = input("Do you want to enter a username again?[Y/N] : ")
-                    while(not repeat == 'Y' and not repeat =-'y'):
-                        if(repeat == 'N' or repeat == 'n'):
+                    while(not repeat == "Y" and not repeat == "y"):
+                        if(repeat == "N" or repeat == "n"):
                             break
                             break
                         print("You put wrong answer")
                         repeat = input("Do you want to enter a username again?[Y/N] : ")                    
 
-            if validity
-                cur.execute("INSERT INTO Follows(username1,username2) VALUES(%s, %s)", (self.__u_name1, u_name2))
+            if validity:
+                self.cur.execute("INSERT INTO Follows(username1,username2) VALUES(%s, %s)", (self.__u_name1, u_name2))
                 validity = False
-                if post.conn is not None:
-                    post.conn.close()
+                if self.post.conn is not None:
+                    self.post.conn.close()
                     print("Closing database connection")
 
-        except (exception, psycopg2.DatabaseError) as error:
+        except (Exception, psycopg2.DatabaseError) as error:
             print(error)
 
         finally:
-            if cur is not None:
-                cur.close()
+            if self.cur is not None:
+                self.cur.close()
                 print("Closing cursor")
-                if post.conn is not None:
-                    post.conn.close()
+                if self.post.conn is not None:
+                    self.post.conn.close()
                     print("Closing database connection")
