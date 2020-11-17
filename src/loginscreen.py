@@ -1,7 +1,7 @@
 #imports ...
 import psycopg2
 from postdb import post_db
-from usermenu import usermenu
+from userMenu import userMenu
 
 def validation_login(self,u_name,u_pass):
         post= post_db() # create a postdb object of the class post_db
