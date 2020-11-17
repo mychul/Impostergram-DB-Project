@@ -85,7 +85,7 @@ class tagged:
                         else:
                             self.cur.execute("DELETE FROM Tagged (username,photo_id) VALUES (%s, %s)", (username, self.__photo_id))
                             self.post.conn.commit()
-                            print("Successfully tagged " + username)
+                            print("Successfully untagged " + username)
                             if self.cur is not None:
                                 self.cur.close()
                                 print("Closing cursor")
