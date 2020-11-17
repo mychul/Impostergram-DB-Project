@@ -8,7 +8,6 @@ class photo_likes:
         post = post_db()
         cur = post.conn.cursor()
    
-    # Let user menu worry about the 'would you like to enter another comment'
     def likes(self):
         try:
             self.cur.execute("SELECT username FROM PhotoLikes WHERE username = %s AND photo_id = %s", (self.__username, self.__photo_id))
