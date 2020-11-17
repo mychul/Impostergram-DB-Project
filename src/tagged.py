@@ -29,6 +29,7 @@ class tagged:
                 if validity: 
                     self.cur.execute("INSERT INTO Tagged (username,photo_id) VALUES (%s, %s)", (username, self.__photo_id))
                     self.post.conn.commit()
+                    print("Successfully tagged " + username)
                     if self.cur is not None:
                         self.cur.close()
                         print("Closing cursor")

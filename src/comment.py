@@ -10,7 +10,7 @@ class comment:
    
     # Let user menu worry about the 'would you like to enter another comment'
     def commented(self):
-        validity=False
+        #validity=False
         try:
             comment_id = 0
             check = True
@@ -24,6 +24,7 @@ class comment:
                     comment_id = comment_id + 1
                     self.cur.execute("INSERT INTO Comments (comment_id, comments, username, photo_id) VALUES (%s, %s, %s, %s)", (comment_id, comment, self.__username, self.__photo_id))
                     self.post.conn.commit()
+                    print("Successfully commented.")
                 elif(choice == 'N' or choice == 'n'):
                     check = True
                     comment = ''
