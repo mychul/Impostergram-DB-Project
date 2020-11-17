@@ -16,6 +16,7 @@ class searchPhoto:
         try:
             loop = True
             while(loop):
+                loop2 = True
                 pid = "p1" #TODO: write a photo search function and then call it here after display menu and giving the user a choice 
                 print("1 - Like the photo\n2 - Tag a user\n3 - View comments\n4 - Make a comment\n5 - Download the photo onto your local device\n")
                 choice = input("What would you like to do this photo? (-1 to cancel): ")
@@ -23,17 +24,37 @@ class searchPhoto:
                     loop = False
                     continue
                 elif(choice == 1):
-                    temp = photo_likes(self.__username, pid)
-                    del temp
+                    while(loop2):
+                        choice2 = input("1 to Like\n2 to Unlike\n-1 to cancel\nChoose:")
+                        if(choice2 == -1):
+                            loop2 = False
+                            continue
+                        photoL = photo_likes(self.__username, pid)
+                        if(choice2 == 1):
+                            photoL.likes()
+                        elif(choice2 == 2):
+                            photoL.unlikes()
+                        del photoL
                 elif(choice == 2):
-                    temp = tagged(pid)
-                    del temp
+                    while(loop2):
+                        choice2 = input("1 to Tag\n2 to Untag\n-1 to cancel\nChoose:")
+                        if(choice2 == -1):
+                            loop2 = False
+                            continue
+                        tag = tagged(self.__username, pid)
+                        if(choice2 == 1):
+                            tag.tag()
+                        elif(choice2 == 2):
+                            tag.untag()
+                        del tag
                 elif(choice == 3):
-                    temp = view_comments(pid, self.__username)
-                    del temp
+                    viewC = view_comments(pid, self.__username)
+                    viewC.view()
+                    del viewC
                 elif(choice == 4):
-                    temp = comment(self.__username, pid)
-                    del temp
+                    newC = comment(self.__username, pid)
+                    newC.commented()
+                    del newC
                 elif(choice == 5):
                     pass
                 else:
