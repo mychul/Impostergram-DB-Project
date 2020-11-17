@@ -2,14 +2,22 @@ import psycopg2
 from postdb import post_db
 from photo_likes import photo_likes
 from tagged import tagged
-from view_comments import view_comments
+from viewComments import view_comments
 from comment import comment
 
-class searchPhoto:
+class search_photo:
     def __init__(self, username):
         __username = username
         post = post_db()
         cur = post.conn.cursor()
+    
+    def close_connection(self):
+        if self.cur is not None:
+            self.cur.close()
+            print("Closing cursor")
+        if self.post.conn is not None:
+            self.post.conn.close()     
+        del self.post
    
     
     def menu(self):

@@ -1,7 +1,7 @@
 #imports ...
 import psycopg2
 from postdb import post_db
-from userMenu import userMenu
+from userMenu import user_menu
 
 def validation_login(self,u_name,u_pass):
         post= post_db() # create a postdb object of the class post_db
@@ -37,7 +37,7 @@ while loop:
     valid_login=validation_login(username,password) #validate given login information
     if valid_login:
         print("Successful Login. Proceeding to main menu.")
-        menu=usermenu(username)
+        menu=user_menu(username)
         menu.start()
     else:
         print("Invalid information entered. Would you like to try again?")
