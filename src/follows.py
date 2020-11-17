@@ -7,6 +7,14 @@ class follows:
         post = post_db()
         cur = post.conn.cursor()
         conn = None
+
+    def close_connection(self):
+        if self.cur is not None:
+            self.cur.close()
+            print("Closing cursor")
+        if self.post.conn is not None:
+            self.post.conn.close()     
+        del self.post    
             
     def addFollow(self):
         validity = False
