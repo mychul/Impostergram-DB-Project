@@ -78,8 +78,8 @@ class tagged:
                 if validity: 
                     if validity: 
                         self.cur.execute("SELECT username FROM Tagged WHERE username = %s AND photo_id = %s", (username, self.__photo_id))
-                        if(self.cur.rowcount > 0):
-                            print("This user is already tagged.")
+                        if(self.cur.rowcount <= 0):
+                            print("This user is already not tagged.")
                             loop = False
                             continue
                         else:
