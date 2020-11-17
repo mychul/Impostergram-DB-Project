@@ -37,7 +37,8 @@ while loop:
     valid_login=validation_login(username,password) #validate given login information
     if valid_login:
         print("Successful Login. Proceeding to main menu.")
-        menu=usermenu()
+        menu=usermenu(username)
+        menu.start()
     else:
         print("Invalid information entered. Would you like to try again?")
         con=input("(Y/N):")

@@ -41,7 +41,7 @@ class comment_likes:
         try:
             self.cur.execute("SELECT username FROM Likes WHERE username = %s AND comment_id = %s", (self.__username, self.__comment_id))
             if self.cur.rowcount <= 0:
-                print("Error: You have not liked this comment.  (-_-) ")
+                print("Error: You have not liked this comment. >.> ")
             elif self.cur.rowcount > 0:
                 self.cur.execute("DELETE FROM Likes WHERE username = %s AND comment_id = %s", (self.__username, self.__comment_id))            
                 print("Successfully unliked the comment.")

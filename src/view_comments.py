@@ -9,7 +9,7 @@ class view_comments:
         post = post_db()
         cur = post.conn.cursor()
    
-    # Let user menu worry about the 'would you like to enter another comment'
+    
     def view(self):
         try:
             self.cur.execute("SELECT comment_id, comments, username, dates FROM Comments WHERE photo_id = %s", (self.__photo_id))
@@ -39,7 +39,7 @@ class view_comments:
                         if(choice2 == -1):
                             loop = False
                             continue
-                        if(choice2 == 1):
+                        elif(choice2 == 1):
                             # create a Comment_Like object passing in comment_choice and username into the appropoate function
                             temp = comment_likes(self.__username, comment_choice)
                             temp.likes()

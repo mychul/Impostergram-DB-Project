@@ -10,7 +10,7 @@ class tagged:
     def tag(self):
         validity=False
         loop = True
-        while(loop):
+        while(loop):#loop for invalid input
             try:
                 username = input("Please enter a username: ")
                 self.cur.execute("SELECT username FROM Users WHERE username = %s", (username))
