@@ -10,7 +10,7 @@ class user_menu:
     def start(self):
         print("Hello %s," ,(self.__username))
         while(True):
-            choice = input("Main Menu: \n 1. Search for a Photo \n 2. Search for a user \n 3. Follow a User \n 4. Unfollow a User \n 5. View your feed\n 6. View Top Posts \n 7. Upload a photo \n 8. Logout")
+            choice = input("Main Menu: \n1. Search for a Photo \n2. Search for a user \n3. Follow a User \n4. Unfollow a User \n5. View your feed\n6. View Top Posts \n7. Upload a photo \n8. Logout")
             if choice == 1:
                 photo_menu = search_photo()
                 photo_menu.menu(self.__username)
