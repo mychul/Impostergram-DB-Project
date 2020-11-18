@@ -16,7 +16,6 @@ class comment_likes:
             self.post.conn.close()     
         del self.post
    
-    # Let user menu worry about the 'would you like to enter another comment'
     def likes(self):
         try:
             self.cur.execute("SELECT username FROM Likes WHERE username = %s AND comment_id = %s", (self.__username, self.__comment_id))

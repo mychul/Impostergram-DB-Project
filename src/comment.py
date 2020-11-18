@@ -16,9 +16,7 @@ class comment:
             self.post.conn.close()     
         del self.post
    
-    # Let user menu worry about the 'would you like to enter another comment'
     def commented(self):
-        #validity=False
         try:
             comment_id = 0
             check = True
