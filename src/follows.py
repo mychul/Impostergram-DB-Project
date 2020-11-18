@@ -35,8 +35,8 @@ class follows:
                     repeat = input("Do you want to enter a username again?[Y/N] : ")
                     while(not repeat == "Y" and not repeat == "y"):
                         if(repeat == "N" or repeat == "n"):
-                            break
-                            break
+                            validity = True
+                            break   #for break line 36
                         print("You put wrong answer")
                         repeat = input("Do you want to enter a username again?[Y/N] : ")                    
                 if validity_user:
@@ -68,19 +68,21 @@ class follows:
 #                cur = self.conn.cursor()
                 self.cur.execute("SELECT * FROM Follows WHERE username1 = %s, username2 = %s",(self.__u_name1, u_name2))
                 if self.cur.rowcount > 0:
-                    validity = True
+                    validity_user = True
                 else:
                     print("That follow does not exist!")
                     repeat = input("Do you want to enter a username again?[Y/N] : ")
                     while(not repeat == "Y" and not repeat == "y"):
                         if(repeat == "N" or repeat == "n"):
-                            break
+                            validity = True
                             break
                         print("You put wrong answer")
                         repeat = input("Do you want to enter a username again?[Y/N] : ")                    
-                if validity:
+                if validity_user:
                     self.cur.execute("DELETE * FROM Follows WHERE username1 = %s, username2 = %s", (self.__u_name1, u_name2))
-                    validity = False
+                    if self.cur.rowcount > 0:
+                        print("You already unfollowed %s", u_name2)
+                    valitidy = True
                     
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
