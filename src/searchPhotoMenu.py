@@ -33,26 +33,32 @@ class search_photo:
                 elif(choice == 1):
                     photoL = photo_likes(self.__username, pid)
                     photoL.likes()
+                    photoL.connection_close()
                     del photoL
                 elif(choice == 2):
                     photoU = photo_likes(self.__username, pid)
                     photoU.unlikes()
+                    photoU.connection_close()
                     del photoU
                 elif(choice == 3):
                     tag = tagged(pid)
                     tag.tag()
+                    tag.connection_close()
                     del tag
                 elif(choice == 4):
                     untag = tagged(pid)
                     untag.untag()
+                    untag.connection_close()
                     del untag
                 elif(choice == 5):
                     viewC = view_comments(pid, self.__username)
                     viewC.view()
+                    viewC.close_connection()
                     del viewC
                 elif(choice == 6):
                     newC = comment(self.__username, pid)
                     newC.commented()
+                    newC.close_connection()
                     del newC
                 elif(choice == 7):
                     pass
