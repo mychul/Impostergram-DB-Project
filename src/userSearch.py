@@ -38,7 +38,7 @@ class user_search:
                         repeat = input("Do you want to search the user again?[Y/N] : ")
                         while(not repeat == "Y" and not repeat == "y"):
                             if(repeat == "N" or repeat == "n"):
-                                break
+                                loop = False
                                 break
                             print("You put wrong answer")
                             repeat = input("Do you want to search the user again?[Y/N] : ")
@@ -54,7 +54,7 @@ class user_search:
                         repeat = input("Do you want to search the user again?[Y/N] : ")
                         while(not repeat == "Y" and not repeat == "y"):
                             if(repeat == "N" or repeat == "n"):
-                                break
+                                loop = False
                                 break
                             print("You put wrong answer")
                             repeat = input("Do you want to search the user again?[Y/N] : ")
@@ -62,3 +62,23 @@ class user_search:
                         print("that username does not exist!\nStart the search again!")
                         continue
                 elif select == 3:
+                    description = input("Please enter a description to search : ")
+                    self.cur.execute("SELECT publisher FROM Photos WHERE description LIKE %s", (description))
+                    if self.cur.rowcount > 0:
+                        validity_description = True
+                        result_users = self.cur.fetchall()
+                        result = []
+                        for row in result_users:
+                            print("username : " + str(row[0] + "\n"))
+                            result.append(row[0])
+#                        choice = input("Please check the user from this list")     #start from here
+                        repeat = input("Do you want to search the user again?[Y/N] : ")
+                        while(not repeat == "Y" and not repeat == "y"):
+                            if(repeat == "N" or repeat == "n"):
+                                loop = False
+                                break
+                            print("You put wrong answer")
+                            repeat = input("Do you want to search the user again?[Y/N] : ")
+                    else:
+                        print("That description does not exist in Photos!\nStart the new search again!")
+                        continue
