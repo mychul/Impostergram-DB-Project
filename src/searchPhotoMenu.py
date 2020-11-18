@@ -26,44 +26,36 @@ class search_photo:
             while(loop):
                 loop2 = True
                 pid = "p1" #TODO: write a photo search function and then call it here after display menu and giving the user a choice 
-                print("1 - Like the photo\n2 - Tag a user\n3 - View comments\n4 - Make a comment\n5 - Download the photo onto your local device\n")
-                choice = input("What would you like to do this photo? (-1 to cancel): ")
+                print("1 - Like the photo\n2 - Unlike the photo\n3 - Tag a user\n4 - Untag a user\n5 - View comments\n6 - Make a comment\n7 - Download the photo onto your local device\n")
+                choice = input("What would you like to do with this photo? (-1 to cancel): ")
                 if(choice == -1):
                     loop = False
                     continue
                 elif(choice == 1):
-                    while(loop2):
-                        choice2 = input("1 to Like\n2 to Unlike\n-1 to cancel\nChoose:")
-                        if(choice2 == -1):
-                            loop2 = False
-                            continue
-                        photoL = photo_likes(self.__username, pid)
-                        if(choice2 == 1):
-                            photoL.likes()
-                        elif(choice2 == 2):
-                            photoL.unlikes()
-                        del photoL
+                    photoL = photo_likes(self.__username, pid)
+                    photoL.likes()
+                    del photoL
                 elif(choice == 2):
-                    while(loop2):
-                        choice2 = input("1 to Tag\n2 to Untag\n-1 to cancel\nChoose:")
-                        if(choice2 == -1):
-                            loop2 = False
-                            continue
-                        tag = tagged(self.__username, pid)
-                        if(choice2 == 1):
-                            tag.tag()
-                        elif(choice2 == 2):
-                            tag.untag()
-                        del tag
+                    photoU = photo_likes(self.__username, pid)
+                    photoU.unlikes()
+                    del photoU
                 elif(choice == 3):
+                    tag = tagged(pid)
+                    tag.tag()
+                    del tag
+                elif(choice == 4):
+                    untag = tagged(pid)
+                    untag.untag()
+                    del untag
+                elif(choice == 5):
                     viewC = view_comments(pid, self.__username)
                     viewC.view()
                     del viewC
-                elif(choice == 4):
+                elif(choice == 6):
                     newC = comment(self.__username, pid)
                     newC.commented()
                     del newC
-                elif(choice == 5):
+                elif(choice == 7):
                     pass
                 else:
                     print("Incorrect input.  Please choose -1 or 1 - 5.\n")
