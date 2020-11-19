@@ -5,26 +5,27 @@ from userMenu import user_menu
 
 def validation_login(u_name,u_pass):
         post= post_db() # create a postdb object of the class post_db
-        ourCursor = [post]
+        #ourCursor = [post]
+        ourConn = [post]
         validity=False
         try:
             
             print("Querying for login validation.")
-            ourCursor[1].execute("SELECT username, pass FROM Users WHERE username = %s, pass =%s",(u_name,u_pass)) #query for the username and password for validation
-            if ourCursor[1].rowcount == 1: # if that combination was found than rowcount would be 1
+            post.cur.execute("SELECT username, pass FROM Users WHERE username = %s, pass =%s",(u_name,u_pass)) #query for the username and password for validation
+            if post.cur.rowcount == 1: # if that combination was found than rowcount would be 1
                 validity =True
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
             return False
         finally:
-            if ourCursor[1] is not None:
+            if post.cur is not None:
                 print("Closing cursor")
-                ourCursor[1].close()
+                post.cur.close()
                 
-            if ourCursor[0] is not None:
+            if ourConn[0] is not None:
                 print("Closing database connection")
-                ourCursor[0].close()
-            del ourCursor
+                ourConn[0].close()
+            del ourConn
             del post #cleanup of the post object
         return validity
 
