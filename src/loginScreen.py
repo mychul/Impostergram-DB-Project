@@ -5,28 +5,26 @@ from userMenu import user_menu
 
 def validation_login(u_name,u_pass):
         post= post_db() # create a postdb object of the class post_db
-        ourConn = [post]
-        ourCursor = [ourConn]
+        ourCursor = [post]
         validity=False
         try:
-            print("Attempting to create a cursor.")
-            cur=ourCursor[0].cursor() # create a cursor
+            
             print("Querying for login validation.")
-            cur.execute("SELECT username, pass FROM Users WHERE username = %s, pass =%s",(u_name,u_pass)) #query for the username and password for validation
-            if cur.rowcount == 1: # if that combination was found than rowcount would be 1
+            ourCursor[1].execute("SELECT username, pass FROM Users WHERE username = %s, pass =%s",(u_name,u_pass)) #query for the username and password for validation
+            if ourCursor[1].rowcount == 1: # if that combination was found than rowcount would be 1
                 validity =True
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
             return False
         finally:
-            if cur is not None:
+            if ourCursor[1] is not None:
                 print("Closing cursor")
-                cur.close()
+                ourCursor[1].close()
                 
-            if post.conn is not None:
+            if ourCursor[0] is not None:
                 print("Closing database connection")
-                ourConn[0].close()
-            del ourConn
+                ourCursor[0].close()
+            del ourCursor
             del post #cleanup of the post object
         return validity
 
@@ -35,7 +33,7 @@ print("Welcome to Impostergram\nPlease log in.")
 loop=True
 while loop:
     choice = input("Would you like to log in(1) or exit(2): ") 
-    if choice == 2:
+    if choice == "2":
         break
     username=input("Username:")
     password=input("Password:")
