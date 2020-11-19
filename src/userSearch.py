@@ -24,9 +24,11 @@ class user_search:
         try:
             loop = True
             while(loop):
-                print("1. Search by username\n2. Search by Photo ID\n3. Search by Description")
-                select = input("Which option do ou want to search? : ")
-                if select == 1:
+                print("1. Search by username\n2. Search by Photo ID\n3. Search by Description\n-1. To Exit\n")
+                select = input("Which option do you want to search? : ")
+                if select == -1:
+                    break
+                elif select == 1:
                     u_name2 = input("Please enter a username to search : ")
                     if u_name2 == self.__u_name1:
                         print("It is your username!\nStart the search again!")
@@ -99,3 +101,4 @@ class user_search:
                 self.post.conn.close()
             del self.post
             # print("Closing database connection")
+        return
