@@ -8,8 +8,8 @@ class post_db:
             conn = psycopg2.connect(
                 host="localhost",
                 database="impostergram_db",
-                user="postgres",
-                password="postgres"
+                user="team2",
+                password="179g"
             )
             
         except (Exception, psycopg2.DatabaseError) as error:
