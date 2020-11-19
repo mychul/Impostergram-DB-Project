@@ -14,8 +14,9 @@ class user_menu:
            
             if choice == "1": # goes to photo submenu
                 photo_menu = search_photo(self.__username)
-                photo_menu.menu()
-                photo_menu.connection_close()
+                if photo_menu.flag:
+                    photo_menu.menu()
+                    photo_menu.connection_close()
                 del photo_menu
             elif choice == "2": # fufills functions requirment 2
                 user_search_menu = user_search(self.__username)
