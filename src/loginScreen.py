@@ -24,7 +24,7 @@ def validation_login(u_name,u_pass):
                 
             if post.conn is not None:
                 print("Closing database connection")
-                ourConn.close()
+                ourConn[0].close()
             del ourConn
             del post #cleanup of the post object
         return validity
