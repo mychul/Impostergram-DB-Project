@@ -82,3 +82,20 @@ class user_search:
                     else:
                         print("That description does not exist in Photos!\nStart the new search again!")
                         continue
+        except (Exception,psycopg2.DatabaseError) as error:
+            print(error)
+            if self.cur is not None:
+                self.cur.close()
+                print("Closing cursor")
+            if self.post.conn is not None:
+                self.post.conn.close()
+            del self.post
+            return
+        finally: 
+            if self.cur is not None:
+                self.cur.close()
+                print("Closing cursor")
+            if self.post.conn is not None:
+                self.post.conn.close()
+            del self.post
+            # print("Closing database connection")
