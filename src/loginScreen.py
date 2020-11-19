@@ -7,20 +7,23 @@ def validation_login(u_name,u_pass):
         post= post_db() # create a postdb object of the class post_db
         #ourCursor = [post]
         ourConn = [post]
+      
         validity=False
         try:
-            
+            print ("Attempting create a cursor")
+            cur = ourConn[0].cursor()
+            print ("Successfully made cursor")
             print("Querying for login validation.")
-            post.cur.execute("SELECT username, pass FROM Users WHERE username = %s, pass =%s",(u_name,u_pass)) #query for the username and password for validation
-            if post.cur.rowcount == 1: # if that combination was found than rowcount would be 1
+            cur.execute("SELECT username, pass FROM Users WHERE username = %s, pass =%s",(u_name,u_pass)) #query for the username and password for validation
+            if cur.rowcount == 1: # if that combination was found than rowcount would be 1
                 validity =True
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
             return False
         finally:
-            if post.cur is not None:
+            if cur is not None:
                 print("Closing cursor")
-                post.cur.close()
+                cur.close()
                 
             if ourConn[0] is not None:
                 print("Closing database connection")
