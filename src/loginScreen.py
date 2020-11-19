@@ -39,8 +39,8 @@ while loop:
     choice = input("Would you like to log in(1) or exit(2): ") 
     if choice == "2":
         break
-    username=input("Username:")
-    password=input("Password:")
+    username=input("Username: ")
+    password=input("Password: ")
     valid_login=False
     valid_login=validation_login(username,password) #validate given login information
     if valid_login:
