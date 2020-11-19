@@ -49,7 +49,7 @@ class view_comments:
                 loop = True
                 while(loop):
                     comment_choice = input("Please enter the comment's id (-1 to Cancel): ")
-                    if(comment_choice == -1):
+                    if(comment_choice == "-1"):
                         loop = False
                         continue
                     valid = False 
