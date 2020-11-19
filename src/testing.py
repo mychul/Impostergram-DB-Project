@@ -21,7 +21,9 @@ except (Exception, psycopg2.DatabaseError) as error:
     print(error)
 
 finally: 
-    cur.close()
-    conn.close()
+    if cur is not None:
+        cur.close()
+    if conn is not None:
+        conn.close()
 
 
