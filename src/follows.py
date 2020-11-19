@@ -22,7 +22,6 @@ class follows:
         try:
             while(not validity):
                 u_name2 = input("Please enter a username to Follow : ")
-#                cur = self.conn.cursor()
                 if u_name2 == self.__u_name1:
                         print("You put yourself! Try it again")
                         continue
@@ -65,7 +64,6 @@ class follows:
                 if u_name2 == self.__u_name1:
                         print("You put yourself! Try it again")
                         continue
-#                cur = self.conn.cursor()
                 self.cur.execute("SELECT * FROM Follows WHERE username1 = %s, username2 = %s",(self.__u_name1, u_name2))
                 if self.cur.rowcount > 0:
                     validity_user = True

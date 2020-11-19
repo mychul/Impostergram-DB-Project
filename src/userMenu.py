@@ -17,7 +17,7 @@ class user_menu:
                 photo_menu.connection_close()
                 del photo_menu
             elif choice == 2:
-                user_search_menu = userSearch()
+                user_search_menu = user_search()
                 user_search_menu.menu(self.__username)
                 user_search_menu.connection_close()
                 del user_search_menu

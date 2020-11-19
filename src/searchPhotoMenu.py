@@ -1,6 +1,6 @@
 import psycopg2
 from postdb import post_db
-from photo_likes import photo_likes
+from photoLikes import photo_likes
 from tagged import tagged
 from viewComments import view_comments
 from comment import comment
