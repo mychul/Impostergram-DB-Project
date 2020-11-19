@@ -7,9 +7,11 @@ from comment import comment
 
 class search_photo:
     def __init__(self, username):
-        __username = username
-        post = post_db()
-        cur = post.conn.cursor()
+        self.__username = username
+        self.post = post_db()
+        self.cur = None
+        try:
+            self.cur = post.conn.cursor()
     
     def close_connection(self):
         if self.cur is not None:

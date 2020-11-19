@@ -5,8 +5,6 @@ from userMenu import user_menu
 
 def validation_login(u_name,u_pass):
         post= post_db() # create a postdb object of the class post_db
-        #ourCursor = [post]
-        #ourConn = [post]
         cur = None
         validity=False
         try:
@@ -28,7 +26,6 @@ def validation_login(u_name,u_pass):
             if post.conn is not None:
                 print("Closing database connection")
                 post.conn.close()
-            #del ourConn
             del post #cleanup of the post object
         return validity
 
