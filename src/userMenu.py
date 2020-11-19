@@ -18,18 +18,18 @@ class user_menu:
                 photo_menu.connection_close()
                 del photo_menu
             elif choice == "2": # fufills functions requirment 2
-                user_search_menu = user_search()
-                user_search_menu.menu(self.__username)
+                user_search_menu = user_search(self.__username)
+                user_search_menu.menu()
                 user_search_menu.connection_close()
                 del user_search_menu
             elif choice == "3":# fufill function requirement 3
-                follow=follows()
-                follow.addFollow(self.__username)
+                follow=follows(self.__username)
+                follow.addFollow()
                 follow.connection_close()
                 del follow
             elif choice == "4":# fufill function requirement 3
-                unfollow =follows()
-                follow.delFollow(self.__username)
+                unfollow =follows(self.__username)
+                follow.delFollow()
                 follow.connection_close()
                 del unfollow
             elif choice == "5":# fufill function requirement 4
