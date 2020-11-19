@@ -7,7 +7,7 @@ def validation_login(u_name,u_pass):
         post= post_db() # create a postdb object of the class post_db
         #ourCursor = [post]
         ourConn = [post]
-      
+        cur = None
         validity=False
         try:
             print ("Attempting create a cursor")
