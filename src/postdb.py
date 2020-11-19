@@ -12,7 +12,11 @@ class post_db:
                 user="team2",
                 password="179g"
             )
-            print ("Success")
+            print ("Successfully made connection")
+            print ("Attempting create a cursor")
+            cur = conn.cursor()
+            print ("Successfully made cursor")
+
             
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
