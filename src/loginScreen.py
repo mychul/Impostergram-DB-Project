@@ -3,7 +3,7 @@ import psycopg2
 from postdb import post_db
 from userMenu import user_menu
 
-def validation_login(self,u_name,u_pass):
+def validation_login(u_name,u_pass):
         post= post_db() # create a postdb object of the class post_db
         validity=False
         try:
