@@ -11,33 +11,34 @@ class user_menu:
         print("Hello %s," ,(self.__username))
         while(True):
             choice = input("Main Menu: \n1. Search for a Photo \n2. Search for a user \n3. Follow a User \n4. Unfollow a User \n5. View your feed\n6. View Top Posts \n7. Upload a photo \n8. Logout")
-            if choice == 1:
+           
+            if choice == "1": # goes to photo submenu
                 photo_menu = search_photo()
                 photo_menu.menu(self.__username)
                 photo_menu.connection_close()
                 del photo_menu
-            elif choice == 2:
+            elif choice == "2": # fufills functions requirment 2
                 user_search_menu = user_search()
                 user_search_menu.menu(self.__username)
                 user_search_menu.connection_close()
                 del user_search_menu
-            elif choice == 3:
+            elif choice == "3":# fufill function requirement 3
                 follow=follows()
                 follow.addFollow(self.__username)
                 follow.connection_close()
                 del follow
-            elif choice == 4:
+            elif choice == "4":# fufill function requirement 3
                 unfollow =follows()
                 follow.delFollow(self.__username)
                 follow.connection_close()
                 del unfollow
-            elif choice == 5:
+            elif choice == "5":# fufill function requirement 4
                 print ("implement feed")
-            elif choice == 6:
-                print ("implement top")
-            elif choice == 7:
-                print ("implement upload")
-            elif choice == 8:
+            elif choice == "6":
+                print ("implement top")# fufills function requirement 10
+            elif choice == "7":
+                print ("implement upload")# fufills function requirement 1a
+            elif choice == "8":
                 return
         return
 
