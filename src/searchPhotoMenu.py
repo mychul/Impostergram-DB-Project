@@ -13,7 +13,7 @@ class search_photo:
         self.flag = True
         try:
             print ("Attempting to make cursor")
-            self.cur = self.post.conn.cursor()
+            self.cur = post.conn.cursor()
             print ("Successfully created cursor")
         except (Exception,psycopg2.DatabaseError) as error:
             print(error)
@@ -23,7 +23,7 @@ class search_photo:
             if self.post.conn is not None:
                 self.post.conn.close()
             del self.post
-            print("Returning to Main Menu.")
+            print("Unexpected error. Returning to Main Menu.")
             self.flag = False
     
     def close_connection(self):
@@ -48,33 +48,39 @@ class search_photo:
                     continue
                 elif(choice == "1"):
                     photoL = photo_likes(self.__username, pid)
-                    photoL.likes()
-                    photoL.connection_close()
+                    if photoL.flag:
+                        photoL.likes()
+                        photoL.connection_close()
                     del photoL
                 elif(choice == "2"):
                     photoU = photo_likes(self.__username, pid)
-                    photoU.unlikes()
-                    photoU.connection_close()
+                    if photoU.flag:
+                        photoU.unlikes()
+                        photoU.connection_close()
                     del photoU
                 elif(choice == "3"):
                     tag = tagged(pid)
-                    tag.tag()
-                    tag.connection_close()
+                    if tag.flag:
+                        tag.tag()
+                        tag.connection_close()
                     del tag
                 elif(choice == "4"):
                     untag = tagged(pid)
-                    untag.untag()
-                    untag.connection_close()
+                    if untag.flag:
+                        untag.untag()
+                        untag.connection_close()
                     del untag
                 elif(choice == "5"):
                     viewC = view_comments(pid, self.__username)
-                    viewC.view()
-                    viewC.close_connection()
+                    if viewC.flag:
+                        viewC.view()
+                        viewC.close_connection()
                     del viewC
                 elif(choice == "6"):
                     newC = comment(self.__username, pid)
-                    newC.commented()
-                    newC.close_connection()
+                    if newC.flag:
+                        newC.commented()
+                        newC.close_connection()
                     del newC
                 elif(choice == "7"):
                     pass

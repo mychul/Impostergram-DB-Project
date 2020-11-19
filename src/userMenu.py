@@ -20,18 +20,21 @@ class user_menu:
                 del photo_menu
             elif choice == "2": # fufills functions requirment 2
                 user_search_menu = user_search(self.__username)
-                user_search_menu.menu()
-                user_search_menu.connection_close()
+                if user_search_menu.flag:
+                    user_search_menu.menu()
+                    user_search_menu.connection_close()
                 del user_search_menu
             elif choice == "3":# fufill function requirement 3
                 follow=follows(self.__username)
-                follow.addFollow()
-                follow.connection_close()
+                if follow.flag:
+                    follow.addFollow()
+                    follow.connection_close()
                 del follow
             elif choice == "4":# fufill function requirement 3
                 unfollow =follows(self.__username)
-                follow.delFollow()
-                follow.connection_close()
+                if unfollow.flag:
+                    follow.delFollow()
+                    follow.connection_close()
                 del unfollow
             elif choice == "5":# fufill function requirement 4
                 print ("implement feed")
