@@ -3,9 +3,24 @@ from postdb import post_db
 
 class tagged:
     def __init__(self, photo_id):
-        __photo_id = photo_id
-        post = post_db()
-        cur = post.conn.cursor()
+        self.__photo_id = photo_id
+        self.post = post_db()
+        self.cur = None
+        self.flag = True
+        try:
+            print ("Attempting to make cursor")
+            self.cur = self.post.conn.cursor()
+            print ("Successfully created cursor")
+        except (Exception,psycopg2.DatabaseError) as error:
+            print(error)
+            if self.cur is not None:
+                self.cur.close()
+                print("Closing cursor")
+            if self.post.conn is not None:
+                self.post.conn.close()
+            del self.post
+            print("Returning to Main Menu.")
+            self.flag = False
     
     def close_connection(self):
         if self.cur is not None:
@@ -13,7 +28,8 @@ class tagged:
             print("Closing cursor")
         if self.post.conn is not None:
             self.post.conn.close()     
-        del self.post
+        if self.post is not None:
+            del self.post
    
     def tag(self):
         validity=False
