@@ -13,7 +13,7 @@ class search_photo:
         self.flag = True
         try:
             print ("Attempting to make cursor")
-            self.cur = post.conn.cursor()
+            self.cur = self.post.conn.cursor()
             print ("Successfully created cursor")
         except (Exception,psycopg2.DatabaseError) as error:
             print(error)
