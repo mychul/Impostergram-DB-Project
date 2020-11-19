@@ -12,7 +12,9 @@ class search_photo:
         self.cur = None
         self.flag = True
         try:
+            print ("Attempting to make cursor")
             self.cur = post.conn.cursor()
+            print ("Successfully created cursor")
         except (Exception,psycopg2.DatabaseError) as error:
             print(error)
             if self.cur is not None:
