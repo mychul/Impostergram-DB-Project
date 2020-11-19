@@ -44,15 +44,15 @@ class view_comments:
                             break
                     if(valid):
                         choice2 = input("Enter 1 to Like, 0 to UnLike (-1 to Cancel): ")
-                        if(choice2 == -1):
+                        if(choice2 == "-1"):
                             loop = False
                             continue
-                        elif(choice2 == 1):
+                        elif(choice2 == "1"):
                             # create a Comment_Like object passing in comment_choice and username into the appropoate function
                             temp = comment_likes(self.__username, comment_choice)
                             temp.likes()
                             del temp # delete the object
-                        elif(choice2 == 0):
+                        elif(choice2 == "0"):
                             # create a Comment_Like object passing in comment_choice and username into the appropoate function
                             temp = comment_likes(self.__username, comment_choice)
                             temp.unlikes()
