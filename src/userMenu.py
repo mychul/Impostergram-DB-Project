@@ -8,9 +8,9 @@ class user_menu:
         self.__username=username
 
     def start(self):
-        print("Hello %s," ,(self.__username))
+        print("Hello " ,(self.__username))
         while(True):
-            choice = input("Main Menu: \n1. Search for a Photo \n2. Search for a user \n3. Follow a User \n4. Unfollow a User \n5. View your feed\n6. View Top Posts \n7. Upload a photo \n8. Logout")
+            choice = input("Main Menu: \n1. Search for a Photo \n2. Search for a user \n3. Follow a User \n4. Unfollow a User \n5. View your feed\n6. View Top Posts \n7. Upload a photo \n8. Logout\n")
            
             if choice == "1": # goes to photo submenu
                 photo_menu = search_photo()
