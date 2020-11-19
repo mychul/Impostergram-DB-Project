@@ -9,7 +9,7 @@ def validation_login(u_name,u_pass):
         validity=False
         try:
             print("Attempting to create a cursor.")
-            cur=ourConn.cursor() # create a cursor
+            cur=ourConn[0].cursor() # create a cursor
             print("Querying for login validation.")
             cur.execute("SELECT username, pass FROM Users WHERE username = %s, pass =%s",(u_name,u_pass)) #query for the username and password for validation
             if cur.rowcount == 1: # if that combination was found than rowcount would be 1
