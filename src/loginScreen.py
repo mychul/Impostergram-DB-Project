@@ -14,7 +14,7 @@ def validation_login(u_name,u_pass):
             cur = post.conn.cursor()
             print ("Successfully made cursor")
             print("Querying for login validation.")
-            cur.execute("SELECT username, pass FROM Users WHERE username = %s, pass =%s",(u_name,u_pass)) #query for the username and password for validation
+            cur.execute("SELECT username, pass FROM Users WHERE username = %s AND pass =%s",(u_name,u_pass)) #query for the username and password for validation
             if cur.rowcount == 1: # if that combination was found than rowcount would be 1
                 validity =True
         except (Exception, psycopg2.DatabaseError) as error:
@@ -47,6 +47,7 @@ while loop:
         print("Successful Login. Proceeding to main menu.")
         menu=user_menu(username)
         menu.start()
+        del menu
     else:
         print("Invalid information entered. Would you like to try again?")
         con=input("(Y/N):")
