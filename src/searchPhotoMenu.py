@@ -27,40 +27,40 @@ class search_photo:
                 pid = "p1" #TODO: write a photo search function and then call it here after display menu and giving the user a choice 
                 print("1 - Like the photo\n2 - Unlike the photo\n3 - Tag a user\n4 - Untag a user\n5 - View comments\n6 - Make a comment\n7 - Download the photo onto your local device\n")
                 choice = input("What would you like to do with this photo? (-1 to cancel): ")
-                if(choice == -1):
+                if(choice == "-1"):
                     loop = False
                     continue
-                elif(choice == 1):
+                elif(choice == "1"):
                     photoL = photo_likes(self.__username, pid)
                     photoL.likes()
                     photoL.connection_close()
                     del photoL
-                elif(choice == 2):
+                elif(choice == "2"):
                     photoU = photo_likes(self.__username, pid)
                     photoU.unlikes()
                     photoU.connection_close()
                     del photoU
-                elif(choice == 3):
+                elif(choice == "3"):
                     tag = tagged(pid)
                     tag.tag()
                     tag.connection_close()
                     del tag
-                elif(choice == 4):
+                elif(choice == "4"):
                     untag = tagged(pid)
                     untag.untag()
                     untag.connection_close()
                     del untag
-                elif(choice == 5):
+                elif(choice == "5"):
                     viewC = view_comments(pid, self.__username)
                     viewC.view()
                     viewC.close_connection()
                     del viewC
-                elif(choice == 6):
+                elif(choice == "6"):
                     newC = comment(self.__username, pid)
                     newC.commented()
                     newC.close_connection()
                     del newC
-                elif(choice == 7):
+                elif(choice == "7"):
                     pass
                 else:
                     print("Incorrect input.  Please choose -1 or 1 - 5.\n")

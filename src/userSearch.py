@@ -26,9 +26,9 @@ class user_search:
             while(loop):
                 print("1. Search by username\n2. Search by Photo ID\n3. Search by Description\n-1. To Exit\n")
                 select = input("Which option do you want to search? : ")
-                if select == -1:
+                if select == "-1":
                     break
-                elif select == 1:
+                elif select == "1":
                     u_name2 = input("Please enter a username to search : ")
                     if u_name2 == self.__u_name1:
                         print("It is your username!\nStart the search again!")
@@ -47,7 +47,7 @@ class user_search:
                     else:
                         print("that username does not exist!\nStart the search again!")
                         continue     
-                elif select == 2:
+                elif select == "2":
                     photoId = input("Please enter a Photo ID to search : ")
                     self.cur.execute("SELECT publisher FROM Photos WHERE photo_id = %s",(photoId))
                     if self.cur.rowcount > 0:
@@ -63,7 +63,7 @@ class user_search:
                     else:
                         print("that username does not exist!\nStart the search again!")
                         continue
-                elif select == 3:
+                elif select == "3":
                     description = input("Please enter a description to search : ")
                     self.cur.execute("SELECT publisher FROM Photos WHERE description LIKE %s", (description))
                     if self.cur.rowcount > 0:
