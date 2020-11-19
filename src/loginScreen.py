@@ -11,7 +11,7 @@ def validation_login(u_name,u_pass):
         validity=False
         try:
             print ("Attempting create a cursor")
-            cur = ourConn[0].cursor()
+            cur = ourConn[0].conn.cursor()
             print ("Successfully made cursor")
             print("Querying for login validation.")
             cur.execute("SELECT username, pass FROM Users WHERE username = %s, pass =%s",(u_name,u_pass)) #query for the username and password for validation
@@ -27,7 +27,7 @@ def validation_login(u_name,u_pass):
                 
             if ourConn[0] is not None:
                 print("Closing database connection")
-                ourConn[0].close()
+                ourConn[0].conn.close()
             del ourConn
             del post #cleanup of the post object
         return validity
