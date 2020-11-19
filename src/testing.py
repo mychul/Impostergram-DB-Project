@@ -12,11 +12,16 @@ try:
         password="179g"
     )
     print ("Successfully made connection")
+    cur=conn.cursor()
     cur.execute("SELECT * FROM Users")
     rows =cur.fetchall()
     for x in rows:
         print (x)    
 except (Exception, psycopg2.DatabaseError) as error:
     print(error)
+
+finally: 
+    cur.close()
+    conn.close()
 
 
