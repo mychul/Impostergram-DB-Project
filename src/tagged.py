@@ -6,7 +6,7 @@ class tagged:
         self.__photo_id = photo_id
         self.post = post_db()
         self.cur = None
-        self.flag = True
+        self.conn_closed = False
         try:
             print ("Attempting to make cursor")
             self.cur = self.post.conn.cursor()
@@ -20,7 +20,7 @@ class tagged:
                 self.post.conn.close()
             del self.post
             print("Returning to Main Menu.")
-            self.flag = False
+            self.conn_closed = True
     
     def close_connection(self):
         if self.cur is not None:
@@ -30,6 +30,7 @@ class tagged:
             self.post.conn.close()     
         if self.post is not None:
             del self.post
+        self.conn_closed = True
    
     def tag(self):
         validity=False
@@ -37,7 +38,7 @@ class tagged:
         while(loop):#loop for invalid input
             try:
                 username = input("Please enter a username: ")
-                self.cur.execute("SELECT username FROM Users WHERE username = %s", (username))
+                self.cur.execute("SELECT username FROM Users WHERE username = %s", [username])
                 if self.cur.rowcount > 0:
                     validity = True
                 else: 
@@ -49,7 +50,8 @@ class tagged:
                             print("Closing cursor")
                         if self.post.conn is not None:
                             self.post.conn.close()     
-                        del self.post              
+                        del self.post   
+                        self.conn_closed = True           
                 if validity: 
                     self.cur.execute("SELECT username FROM Tagged WHERE username = %s AND photo_id = %s", (username, self.__photo_id))
                     if(self.cur.rowcount > 0):
@@ -67,6 +69,7 @@ class tagged:
                             self.post.conn.close()
                             # print("Closing database connection")
                         del self.post
+                        self.conn_closed = True
                         return
             except (Exception,psycopg2.DatabaseError) as error:
                 print(error)
@@ -76,6 +79,7 @@ class tagged:
                 if self.post.conn is not None:
                     self.post.conn.close()
                 del self.post
+                self.conn_closed = True
                 return
                     # print("Closing database connection")
         return
@@ -86,7 +90,7 @@ class tagged:
         while(loop):#loop for invalid input
             try:
                 username = input("Please enter a username: ")
-                self.cur.execute("SELECT username FROM Users WHERE username = %s", (username))
+                self.cur.execute("SELECT username FROM Users WHERE username = %s", [username])
                 if self.cur.rowcount > 0:
                     validity = True
                 else: 
@@ -98,7 +102,8 @@ class tagged:
                             print("Closing cursor")
                         if self.post.conn is not None:
                             self.post.conn.close()     
-                        del self.post              
+                        del self.post    
+                        self.conn_closed = True          
                 if validity: 
                     if validity: 
                         self.cur.execute("SELECT username FROM Tagged WHERE username = %s AND photo_id = %s", (username, self.__photo_id))
@@ -117,6 +122,7 @@ class tagged:
                                 self.post.conn.close()
                                 # print("Closing database connection")
                             del self.post
+                            self.conn_closed = True
                             return
             except (Exception,psycopg2.DatabaseError) as error:
                 print(error)
@@ -126,6 +132,7 @@ class tagged:
                 if self.post.conn is not None:
                     self.post.conn.close()
                 del self.post
+                self.conn_closed = True
                 return
                     # print("Closing database connection")
         return

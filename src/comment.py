@@ -1,5 +1,6 @@
 import psycopg2
 from postdb import post_db
+from datetime import datetime
 
 class comment:
     def __init__(self, username, photo_id):
@@ -7,7 +8,8 @@ class comment:
         self.__username = username
         self.post = post_db()
         self.cur = None
-        self.flag = True
+        self.conn_closed = False # First flag that userMenu will check before
+        
         try:
             print ("Attempting to make cursor")
             self.cur = self.post.conn.cursor()
@@ -21,7 +23,7 @@ class comment:
                 self.post.conn.close()
             del self.post
             print("Returning to Main Menu.")
-            self.flag = False
+            self.conn_closed = True
     
     def close_connection(self):
         if self.cur is not None:
@@ -31,10 +33,10 @@ class comment:
             self.post.conn.close()     
         if self.post is not None:
             del self.post
+        self.conn_closed = True
    
     def commented(self):
         try:
-            comment_id = 0
             check = True
             while(check):
                 comment = input("Please enter your comment: ")
@@ -42,9 +44,12 @@ class comment:
                 if(choice == "Y" or choice == "y"):
                     check = False
                     self.cur.execute("SELECT MAX(comment_id) FROM Comments")
-                    comment_id = self.cur.fetchone()
-                    comment_id = comment_id + 1
-                    self.cur.execute("INSERT INTO Comments (comment_id, comments, username, photo_id) VALUES (%s, %s, %s, %s)", (comment_id, comment, self.__username, self.__photo_id))
+                    row = self.cur.fetchone()
+                    comment_id = int(row[0]) + 1
+                    now = datetime.now()
+                    # dd/mm/YY H:M:S
+                    #dt_string = now.strftime("%Y/%m/%d %H:%M:%S")
+                    self.cur.execute("INSERT INTO Comments (comment_id, comments, username, photo_id, dates) VALUES (%s, %s, %s, %s, %s)", [str(comment_id), comment, self.__username, self.__photo_id, now])
                     self.post.conn.commit()
                     print("Successfully commented.")
                 elif(choice == 'N' or choice == 'n'):
@@ -55,17 +60,22 @@ class comment:
             print(error)
             if self.cur is not None:
                 self.cur.close()
-                print("Closing cursor")
+                print("Error: Closing cursor")
             if self.post.conn is not None:
                 self.post.conn.close()
-            del self.post
+            if self.post is not None:
+                del self.post
+            self.conn_closed = True
             return
         finally: 
-            if self.cur is not None:
-                self.cur.close()
-                print("Closing cursor")
-            if self.post.conn is not None:
-                self.post.conn.close()
-            del self.post
-            # print("Closing database connection")
+            if not self.conn_closed:
+                if self.cur is not None:
+                    self.cur.close()
+                    print("Closing cursor")
+                if self.post.conn is not None:
+                    self.post.conn.close()
+                if self.post is not None:
+                    del self.post
+                self.conn_closed = True
+                # print("Closing database connection")
         return

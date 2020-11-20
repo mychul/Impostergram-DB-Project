@@ -8,7 +8,7 @@ class user_search:
         self.post = post_db()
         self.conn = None
         self.cur = None
-        self.flag = True
+        self.conn_closed = False
         try:
             print ("Attempting to make cursor")
             self.cur = self.post.conn.cursor()
@@ -22,7 +22,7 @@ class user_search:
                 self.post.conn.close()
             del self.post
             print("Returning to Main Menu.")
-            self.flag = False
+            self.conn_closed = True
     
     def close_connection(self):
         if self.cur is not None:
@@ -32,6 +32,7 @@ class user_search:
             self.post.conn.close()     
         if self.post is not None:
             del self.post
+        self.conn_closed = True
         
     def userSearch(self):
         validity_user = False
@@ -49,10 +50,10 @@ class user_search:
                     if u_name2 == self.__u_name1:
                         print("It is your username!\nStart the search again!")
                         continue
-                    self.cur.execute("SELECT username FROM Users WHERE username = %s",(u_name2))
+                    self.cur.execute("SELECT username FROM Users WHERE username = %s", [u_name2])
                     if self.cur.rowcount > 0:
                         validity_user = True
-                        print("%s exists in username list!", u_name2)
+                        print(u_name2 + " exists in username list!")
                         repeat = input("Do you want to search the user again?[Y/N] : ")
                         while(not repeat == "Y" and not repeat == "y"):
                             if(repeat == "N" or repeat == "n"):
@@ -65,10 +66,10 @@ class user_search:
                         continue     
                 elif select == "2":
                     photoId = input("Please enter a Photo ID to search : ")
-                    self.cur.execute("SELECT publisher FROM Photos WHERE photo_id = %s",(photoId))
+                    self.cur.execute("SELECT publisher FROM Photos WHERE photo_id = %s", [photoId])
                     if self.cur.rowcount > 0:
                         validity_photo = True
-                        print("Publisher of Photo ID %s is %s", photoId, self.cur.fetch_one())
+                        print("Publisher of Photo ID %s is %s", photoId, self.cur.fetchone())
                         repeat = input("Do you want to search the user again?[Y/N] : ")
                         while(not repeat == "Y" and not repeat == "y"):
                             if(repeat == "N" or repeat == "n"):
@@ -81,7 +82,7 @@ class user_search:
                         continue
                 elif select == "3":
                     description = input("Please enter a description to search : ")
-                    self.cur.execute("SELECT publisher FROM Photos WHERE description LIKE %s", (description))
+                    self.cur.execute("SELECT publisher FROM Photos WHERE description LIKE \'%s\'", [description])
                     if self.cur.rowcount > 0:
                         validity_description = True
                         result_users = self.cur.fetchall()
@@ -104,17 +105,22 @@ class user_search:
             print(error)
             if self.cur is not None:
                 self.cur.close()
-                print("Closing cursor")
+                print("Error: Closing cursor")
             if self.post.conn is not None:
                 self.post.conn.close()
-            del self.post
+            if self.post is not None:
+                del self.post
+            self.conn_closed = True
             return
         finally: 
-            if self.cur is not None:
-                self.cur.close()
-                print("Closing cursor")
-            if self.post.conn is not None:
-                self.post.conn.close()
-            del self.post
-            # print("Closing database connection")
+            if not self.conn_closed:
+                if self.cur is not None:
+                    self.cur.close()
+                    print("Closing cursor")
+                if self.post.conn is not None:
+                    self.post.conn.close()
+                if self.post is not None:
+                    del self.post
+                self.conn_closed = True
+                # print("Closing database connection")
         return

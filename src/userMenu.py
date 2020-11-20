@@ -14,27 +14,32 @@ class user_menu:
            
             if choice == "1": # goes to photo submenu
                 photo_menu = search_photo(self.__username)
-                if photo_menu.flag:
+                if not photo_menu.conn_closed:
                     photo_menu.menu()
-                    photo_menu.close_connection()
+                    if not photo_menu.conn_closed: # If the user exits 
+                        photo_menu.close_connection()
+                    print("Back Here in Main Menu in choice #1") #debug 
                 del photo_menu
             elif choice == "2": # fufills functions requirment 2
                 user_search_menu = user_search(self.__username)
-                if user_search_menu.flag:
-                    user_search_menu.menu()
-                    user_search_menu.close_connection()
+                if not user_search_menu.conn_closed:
+                    user_search_menu.userSearch()
+                    if not user_search_menu.conn_closed:
+                        user_search_menu.close_connection()
                 del user_search_menu
             elif choice == "3":# fufill function requirement 3
                 follow=follows(self.__username)
-                if follow.flag:
+                if not follow.conn_closed:
                     follow.addFollow()
-                    follow.close_connection()
+                    if not follow.conn_closed:
+                        follow.close_connection()
                 del follow
             elif choice == "4":# fufill function requirement 3
                 unfollow =follows(self.__username)
-                if unfollow.flag:
+                if not unfollow.conn_closed:
                     follow.delFollow()
-                    follow.close_connection()
+                    if not photo_menu.conn_closed:
+                        follow.close_connection()
                 del unfollow
             elif choice == "5":# fufill function requirement 4
                 print ("implement feed")

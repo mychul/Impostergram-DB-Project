@@ -6,7 +6,7 @@ class follows:
         self.__u_name1 = username
         self.post = post_db()
         self.cur = None
-        self.flag = True
+        self.conn_closed = False
         try:
             print ("Attempting to make cursor")
             self.cur = self.post.conn.cursor()
@@ -20,7 +20,7 @@ class follows:
                 self.post.conn.close()
             del self.post
             print("Returning to Main Menu.")
-            self.flag = False
+            self.conn_closed = True
     
     def close_connection(self):
         if self.cur is not None:
@@ -30,6 +30,7 @@ class follows:
             self.post.conn.close()     
         if self.post is not None:
             del self.post
+        self.conn_closed = True
             
     def addFollow(self):
         validity = False
@@ -41,7 +42,7 @@ class follows:
                         print("You put yourself! Try it again")
                         continue
 
-                self.cur.execute("SELECT username FROM Users WHERE username = %s",(u_name2))
+                self.cur.execute("SELECT username FROM Users WHERE username = %s",[u_name2])
                 if self.cur.rowcount > 0:
                     validity_user = True
                 else:
@@ -70,6 +71,8 @@ class follows:
                 if self.post.conn is not None:
                     self.post.conn.close()
                     print("Closing database connection")
+            self.conn_closed = True
+
     def delFollow(self):
         validity = False
         validity_user = False
@@ -107,3 +110,4 @@ class follows:
                 if self.post.conn is not None:
                     self.post.conn.close()
                     print("Closing database connection")
+            self.conn_closed = True
