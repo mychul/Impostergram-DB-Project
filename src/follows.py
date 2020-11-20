@@ -32,7 +32,7 @@ class follows:
         # Use the COPY function on the SQL we created above.
         SQL_for_file_output = "COPY ({0}) TO STDOUT WITH CSV HEADER".format(s)
         # Set up a variable to store our file path and name.
-        t_path_n_file = "/home/team2/Documents/CS179g/Backup/" + tableName + ".csv"
+        t_path_n_file = "/home/team2/Documents/CS179g/DynamicBackup/" + tableName + ".csv"
         try:
             with open(t_path_n_file, 'w') as f_output:
                 self.cur.copy_expert(SQL_for_file_output, f_output)
