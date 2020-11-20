@@ -50,25 +50,25 @@ class search_photo:
                     photoL = photo_likes(self.__username, pid)
                     if photoL.flag:
                         photoL.likes()
-                        photoL.connection_close()
+                        photoL.close_connection()
                     del photoL
                 elif(choice == "2"):
                     photoU = photo_likes(self.__username, pid)
                     if photoU.flag:
                         photoU.unlikes()
-                        photoU.connection_close()
+                        photoU.close_connection()
                     del photoU
                 elif(choice == "3"):
                     tag = tagged(pid)
                     if tag.flag:
                         tag.tag()
-                        tag.connection_close()
+                        tag.close_connection()
                     del tag
                 elif(choice == "4"):
                     untag = tagged(pid)
                     if untag.flag:
                         untag.untag()
-                        untag.connection_close()
+                        untag.close_connection()
                     del untag
                 elif(choice == "5"):
                     viewC = view_comments(pid, self.__username)
