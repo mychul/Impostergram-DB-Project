@@ -22,6 +22,23 @@ class follows:
             print("Returning to Main Menu.")
             self.conn_closed = True
     
+    def csv_export(self,tableName):
+        s = ""
+        s += "SELECT *"
+        s += " FROM "
+        s += tableName
+        s += ""
+
+        # Use the COPY function on the SQL we created above.
+        SQL_for_file_output = "COPY ({0}) TO STDOUT WITH CSV HEADER".format(s)
+        # Set up a variable to store our file path and name.
+        t_path_n_file = "/home/team2/Documents/CS179g/Backup/" + tableName + ".csv"
+        try:
+            with open(t_path_n_file, 'w') as f_output:
+                self.cur.copy_expert(SQL_for_file_output, f_output)
+        except (Exception,psycopg2.DatabaseError) as error:
+            print(error)    
+    
     def close_connection(self):
         if self.cur is not None:
             self.cur.close()
@@ -60,6 +77,9 @@ class follows:
                         print("You already followed %s", u_name2)
                     else:
                         self.cur.execute("INSERT INTO Follows(username1,username2) VALUES(%s, %s)", (self.__u_name1, u_name2))
+                        self.cur.commit()
+                        print("Success!")
+                        self.csv_export("Follows")
                     valitidy = True
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
@@ -96,8 +116,12 @@ class follows:
                         repeat = input("Do you want to enter a username again?[Y/N] : ")                    
                 if validity_user:
                     self.cur.execute("DELETE * FROM Follows WHERE username1 = %s, username2 = %s", (self.__u_name1, u_name2))
-                    if self.cur.rowcount > 0:
+                    if self.cur.rowcount <= 0:
                         print("You already unfollowed %s", u_name2)
+                    else:
+                        self.cur.commit()
+                        print("Success!")
+                        self.csv_export("Follows")
                     valitidy = True
                     
         except (Exception, psycopg2.DatabaseError) as error:

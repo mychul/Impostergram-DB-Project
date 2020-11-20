@@ -22,7 +22,24 @@ class comment_likes:
             del self.post
             print("Returning to Main Menu.")
             self.conn_closed = True
-    
+
+    def csv_export(self,tableName):
+        s = ""
+        s += "SELECT *"
+        s += " FROM "
+        s += tableName
+        s += ""
+
+        # Use the COPY function on the SQL we created above.
+        SQL_for_file_output = "COPY ({0}) TO STDOUT WITH CSV HEADER".format(s)
+        # Set up a variable to store our file path and name.
+        t_path_n_file = "/home/team2/Documents/CS179g/Backup/" + tableName + ".csv"
+        try:
+            with open(t_path_n_file, 'w') as f_output:
+                self.cur.copy_expert(SQL_for_file_output, f_output)
+        except (Exception,psycopg2.DatabaseError) as error:
+            print(error)    
+
     def close_connection(self):
         if self.cur is not None:
             self.cur.close()
@@ -42,6 +59,7 @@ class comment_likes:
                 self.cur.execute("INSERT INTO Likes (username, comment_id) VALUES (%s, %s)", (self.__username, self.__comment_id))            
                 print("Successfully liked the comment.")
                 self.post.conn.commit()
+                self.csv_export("Likes")
         except (Exception,psycopg2.DatabaseError) as error:
             print(error)
             if self.cur is not None:
@@ -72,6 +90,7 @@ class comment_likes:
                 self.cur.execute("DELETE FROM Likes WHERE username = %s AND comment_id = %s", (self.__username, self.__comment_id))            
                 print("Successfully unliked the comment.")
                 self.post.conn.commit()
+                self.csv_export("Likes")
         except (Exception,psycopg2.DatabaseError) as error:
             print(error)
             if self.cur is not None:
