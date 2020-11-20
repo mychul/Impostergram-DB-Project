@@ -65,12 +65,14 @@ class view_comments:
                         elif(choice2 == "1"):
                             # create a Comment_Like object passing in comment_choice and username into the appropoate function
                             temp = comment_likes(self.__username, comment_choice)
-                            temp.likes()
+                            if temp.flag:
+                                temp.likes()
                             del temp # delete the object
                         elif(choice2 == "0"):
                             # create a Comment_Like object passing in comment_choice and username into the appropoate function
                             temp = comment_likes(self.__username, comment_choice)
-                            temp.unlikes()
+                            if temp.flag:
+                                temp.unlikes()
                             del temp # delete the object
                     else:
                         print("Comment_id that you entered does not exist.")
