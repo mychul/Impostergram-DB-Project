@@ -5,7 +5,7 @@ cluster = MongoClient("mongodb+srv://team2:179g@cluster0.fm94y.mongodb.net/impos
 db = cluster["impostergram"]
 collection = db["Photos"]
 
-post= {"_id":p1}
+post= {"_id":"p1"}
 
 collection.insert_one(post)
 
