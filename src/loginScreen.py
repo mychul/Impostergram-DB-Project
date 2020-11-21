@@ -51,7 +51,7 @@ while loop:
         con=input("(Y/N):")
         if con =="n" or con=="N" or con=="no" or con=="No":
             loop=False
-backup_choice=input("Save changes to dynamic backup?: (Y/N)")
+backup_choice=input("Save changes to dynamic backup? (Y/N): ")
 if backup_choice == "Y" or backup_choice== "y":
     dump= update_csv()
     if not dump.conn_closed:
