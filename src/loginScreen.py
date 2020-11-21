@@ -2,6 +2,7 @@
 import psycopg2
 from postdb import post_db
 from userMenu import user_menu
+from updateCsv import update_csv
 
 def validation_login(u_name,u_pass):
         post= post_db() # create a postdb object of the class post_db
@@ -50,6 +51,10 @@ while loop:
         con=input("(Y/N):")
         if con =="n" or con=="N" or con=="no" or con=="No":
             loop=False
+backup_choice=input("Save changes to dynamic backup?: (Y/N)")
+if backup_choice == "N" or backup_choice== "n":
+    dump= update_csv()
+    dump.csv_export()
 print("GoodBye")
 
 
