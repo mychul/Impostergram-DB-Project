@@ -82,7 +82,8 @@ class user_search:
                         continue
                 elif select == "3":
                     description = input("Please enter a description to search : ")
-                    self.cur.execute("SELECT publisher FROM Photos WHERE description LIKE \'%s\'", [description])
+                    sql = "%" + description + "%"
+                    self.cur.execute("SELECT publisher FROM Photos WHERE description LIKE %s", [sql])
                     if self.cur.rowcount > 0:
                         validity_description = True
                         result_users = self.cur.fetchall()
