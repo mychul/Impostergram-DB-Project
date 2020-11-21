@@ -80,7 +80,7 @@ class follows:
                         self.post.conn.commit()
                         print("Success!")
                         """ self.csv_export("Follows") """
-                    valitidy = True
+                    validity = True
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
 
