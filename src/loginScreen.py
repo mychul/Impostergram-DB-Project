@@ -52,7 +52,7 @@ while loop:
         if con =="n" or con=="N" or con=="no" or con=="No":
             loop=False
 backup_choice=input("Save changes to dynamic backup?: (Y/N)")
-if backup_choice == "N" or backup_choice== "n":
+if backup_choice == "Y" or backup_choice== "y":
     dump= update_csv()
     dump.csv_export()
 print("GoodBye")
