@@ -42,7 +42,7 @@ class comment_likes:
                 self.cur.execute("INSERT INTO Likes (username, comment_id) VALUES (%s, %s)", (self.__username, self.__comment_id))            
                 print("Successfully liked the comment.")
                 self.post.conn.commit()
-                self.csv_export("Likes")
+                #self.csv_export("Likes")
         except (Exception,psycopg2.DatabaseError) as error:
             print(error)
             if self.cur is not None:

@@ -102,7 +102,7 @@ class follows:
                 if u_name2 == self.__u_name1:
                         print("You put yourself! Try it again")
                         continue
-                self.cur.execute("SELECT * FROM Follows WHERE username1 = %s, username2 = %s",(self.__u_name1, u_name2))
+                self.cur.execute("SELECT * FROM Follows WHERE username1 = %s AND username2 = %s",(self.__u_name1, u_name2))
                 if self.cur.rowcount > 0:
                     validity_user = True
                 else:
@@ -115,7 +115,7 @@ class follows:
                         print("You put wrong answer")
                         repeat = input("Do you want to enter a username again?[Y/N] : ")                    
                 if validity_user:
-                    self.cur.execute("DELETE * FROM Follows WHERE username1 = %s, username2 = %s", (self.__u_name1, u_name2))
+                    self.cur.execute("DELETE * FROM Follows WHERE username1 = %s AND username2 = %s", (self.__u_name1, u_name2))
                     if self.cur.rowcount <= 0:
                         print("You already unfollowed %s", u_name2)
                     else:
