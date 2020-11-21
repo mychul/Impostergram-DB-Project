@@ -10,24 +10,24 @@ class view_comments:
         self.cur = None
         self.conn_closed = False
         try:
-            print ("Attempting to make cursor")
+           # print ("Attempting to make cursor")
             self.cur = self.post.conn.cursor()
-            print ("Successfully created cursor")
+           # print ("Successfully created cursor")
         except (Exception,psycopg2.DatabaseError) as error:
             print(error)
             if self.cur is not None:
                 self.cur.close()
-                print("Closing cursor")
+              #  print("Closing cursor")
             if self.post.conn is not None:
                 self.post.conn.close()
             del self.post
-            print("Returning to Main Menu.")
+           # print("Returning to Main Menu.")
             self.conn_closed = True
     
     def close_connection(self):
         if self.cur is not None:
             self.cur.close()
-            print("Closing cursor")
+         #   print("Closing cursor")
         if self.post.conn is not None:
             self.post.conn.close()     
         if self.post is not None:
@@ -83,7 +83,7 @@ class view_comments:
             print(error)
             if self.cur is not None:
                 self.cur.close()
-                print("Error: Closing cursor")
+                #print("Error: Closing cursor")
             if self.post.conn is not None:
                 self.post.conn.close()
             if self.post is not None:
@@ -94,7 +94,7 @@ class view_comments:
             if not self.conn_closed:
                 if self.cur is not None:
                     self.cur.close()
-                    print("Normal: Closing cursor")
+                    #print("Normal: Closing cursor")
                 if self.post.conn is not None:
                     self.post.conn.close()
                 if self.post is not None:
