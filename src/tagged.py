@@ -22,7 +22,7 @@ class tagged:
             print("Returning to Main Menu.")
             self.conn_closed = True
     
-    def csv_export(self,tableName):
+    """ def csv_export(self,tableName):
         s = ""
         s += "SELECT *"
         s += " FROM "
@@ -37,7 +37,7 @@ class tagged:
             with open(t_path_n_file, 'w') as f_output:
                 self.cur.copy_expert(SQL_for_file_output, f_output)
         except (Exception,psycopg2.DatabaseError) as error:
-            print(error)    
+            print(error)     """
 
     def close_connection(self):
         if self.cur is not None:
@@ -78,7 +78,7 @@ class tagged:
                     else:
                         self.cur.execute("INSERT INTO Tagged (username,photo_id) VALUES (%s, %s)", (username, self.__photo_id))
                         self.post.conn.commit()
-                        self.csv_export("Tagged")
+                        #self.csv_export("Tagged")
                         print("Successfully tagged " + username)
                         if self.cur is not None:
                             self.cur.close()
@@ -132,7 +132,7 @@ class tagged:
                         else:
                             self.cur.execute("DELETE FROM Tagged (username,photo_id) VALUES (%s, %s)", (username, self.__photo_id))
                             self.post.conn.commit()
-                            self.csv_export("Tagged")
+                            #self.csv_export("Tagged")
                             print("Successfully untagged " + username)
                             if self.cur is not None:
                                 self.cur.close()

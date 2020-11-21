@@ -22,7 +22,7 @@ class follows:
             print("Returning to Main Menu.")
             self.conn_closed = True
     
-    def csv_export(self,tableName):
+    """ def csv_export(self,tableName):
         s = ""
         s += "SELECT *"
         s += " FROM "
@@ -37,7 +37,7 @@ class follows:
             with open(t_path_n_file, 'w') as f_output:
                 self.cur.copy_expert(SQL_for_file_output, f_output)
         except (Exception,psycopg2.DatabaseError) as error:
-            print(error)    
+            print(error)     """
     
     def close_connection(self):
         if self.cur is not None:
@@ -79,7 +79,7 @@ class follows:
                         self.cur.execute("INSERT INTO Follows(username1,username2) VALUES(%s, %s)", (self.__u_name1, u_name2))
                         self.cur.commit()
                         print("Success!")
-                        self.csv_export("Follows")
+                        """ self.csv_export("Follows") """
                     valitidy = True
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
@@ -121,7 +121,7 @@ class follows:
                     else:
                         self.cur.commit()
                         print("Success!")
-                        self.csv_export("Follows")
+                        """ self.csv_export("Follows") """
                     valitidy = True
                     
         except (Exception, psycopg2.DatabaseError) as error:

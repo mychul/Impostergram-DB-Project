@@ -24,24 +24,6 @@ class comment:
             del self.post
             print("Returning to Main Menu.")
             self.conn_closed = True
-    
-    def csv_export(self,tableName):
-        s = ""
-        s += "SELECT *"
-        s += " FROM "
-        s += tableName
-        s += ""
-
-        # Use the COPY function on the SQL we created above.
-        SQL_for_file_output = "COPY ({0}) TO STDOUT WITH CSV HEADER".format(s)
-        # Set up a variable to store our file path and name.
-        t_path_n_file = "/home/team2/Documents/CS179g/DynamicBackup/" + tableName + ".csv"
-        try:
-            with open(t_path_n_file, 'w') as f_output:
-                self.cur.copy_expert(SQL_for_file_output, f_output)
-        except (Exception,psycopg2.DatabaseError) as error:
-            print(error)
-
 
     def close_connection(self):
         if self.cur is not None:
@@ -69,7 +51,7 @@ class comment:
                     #dt_string = now.strftime("%Y/%m/%d %H:%M:%S")
                     self.cur.execute("INSERT INTO Comments (comment_id, comments, username, photo_id, dates) VALUES (%s, %s, %s, %s, %s)", [str(comment_id), comment, self.__username, self.__photo_id, now])
                     self.post.conn.commit()
-                    self.csv_export("Comments")
+                    #self.csv_export("Comments")
                     print("Successfully commented.")
                 elif(choice == 'N' or choice == 'n'):
                     check = True
