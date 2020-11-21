@@ -97,7 +97,7 @@ class follows:
         validity = False
         validity_user = False
         try:
-            while(not validity):
+            while(not validity): #HI
                 u_name2 = input("Please enter a username to Unfollow : ")
                 if u_name2 == self.__u_name1:
                         print("You put yourself! Try it again")
