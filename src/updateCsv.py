@@ -5,7 +5,7 @@ class update_csv:
         self.tablename = ["Comments", "Follows", "Likes", "PhotoLikes", "Photos", "Tagged", "Views"]
         self.post= post_db()
         self.cur=None
-        self.cur_closed=False
+        self.conn_closed=False
         try:
             print ("Attempting to make cursor")
             self.cur = self.post.conn.cursor()
