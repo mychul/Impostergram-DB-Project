@@ -1,8 +1,36 @@
 import psycopg2
-
+from postdb import post_db
 class update_csv:
     def __init__(self):
         self.tablename = ["Comments", "Follows", "Likes", "PhotoLikes", "Photos", "Tagged", "Views"]
+        self.post= post_db()
+        self.cur=None
+        self.cur_closed=False
+        self.cur=post.conn.cursor()
+        try:
+            print ("Attempting to make cursor")
+            self.cur = self.post.conn.cursor()
+            print ("Successfully created cursor")
+        except (Exception,psycopg2.DatabaseError) as error:
+            print(error)
+            if self.cur is not None:
+                self.cur.close()
+                print("Closing cursor")
+            if self.post.conn is not None:
+                self.post.conn.close()
+            del self.post
+            print("Unexpected error. Returning to Main Menu.")
+            self.conn_closed = True
+    
+    def close_connection(self):
+        if self.cur is not None:
+            self.cur.close()
+            print("Closing cursor in close function in search photo")
+        if self.post.conn is not None:
+            self.post.conn.close()     
+        if self.post is not None:
+            del self.post
+        self.conn_closed = True
 
     def csv_export(self,):
         print("Function csv_export has been called.  Executing update...")
