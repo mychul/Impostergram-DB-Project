@@ -1,7 +1,7 @@
 import pymongo
 from pymongo import MongoClient
 
-cluster = MongoClient("mongodb+srv://team2:179g@cluster0.fm94y.mongodb.net/impostergram?retryWrites=true&w=majority")
+cluster = MongoClient("mongodb+srv://team2:179g@cluster0.fm94y.mongodb.net/Impostergram?retryWrites=true&w=majority")
 db = cluster["impostergram"]
 collection = db["Photos"]
 
