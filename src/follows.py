@@ -115,14 +115,14 @@ class follows:
                         print("You put wrong answer")
                         repeat = input("Do you want to enter a username again?[Y/N] : ")                    
                 if validity_user:
-                    self.cur.execute("DELETE * FROM Follows WHERE username1 = %s AND username2 = %s", (self.__u_name1, u_name2))
+                    self.cur.execute("DELETE FROM Follows WHERE username1 = %s AND username2 = %s", (self.__u_name1, u_name2))
                     if self.cur.rowcount <= 0:
                         print("You already unfollowed %s", u_name2)
                     else:
                         self.post.conn.commit()
                         print("Success!")
                         """ self.csv_export("Follows") """
-                    valitidy = True
+                    validity = True
                     
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)

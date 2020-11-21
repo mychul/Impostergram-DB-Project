@@ -42,9 +42,9 @@ class user_menu:
             elif choice == "4":# fufill function requirement 3
                 unfollow =follows(self.__username)
                 if not unfollow.conn_closed:
-                    follow.delFollow()
-                    if not photo_menu.conn_closed:
-                        follow.close_connection()
+                    unfollow.delFollow()
+                    if not unfollow.conn_closed:
+                        unfollow.close_connection()
                 del unfollow
             elif choice == "5":# fufill function requirement 4
                 print ("implement feed")
