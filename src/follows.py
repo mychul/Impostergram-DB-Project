@@ -77,7 +77,7 @@ class follows:
                         print("You already followed %s", u_name2)
                     else:
                         self.cur.execute("INSERT INTO Follows(username1,username2) VALUES(%s, %s)", (self.__u_name1, u_name2))
-                        self.cur.commit()
+                        self.post.conn.commit()
                         print("Success!")
                         """ self.csv_export("Follows") """
                     valitidy = True
@@ -119,7 +119,7 @@ class follows:
                     if self.cur.rowcount <= 0:
                         print("You already unfollowed %s", u_name2)
                     else:
-                        self.cur.commit()
+                        self.post.conn.commit()
                         print("Success!")
                         """ self.csv_export("Follows") """
                     valitidy = True
