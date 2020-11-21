@@ -130,7 +130,7 @@ class tagged:
                             loop = False
                             continue
                         else:
-                            self.cur.execute("DELETE FROM Tagged (username,photo_id) VALUES (%s, %s)", (username, self.__photo_id))
+                            self.cur.execute("DELETE FROM Tagged WHERE username = %s AND photo_id = %s", (username, self.__photo_id))
                             self.post.conn.commit()
                             #self.csv_export("Tagged")
                             print("Successfully untagged " + username)
