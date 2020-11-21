@@ -3,16 +3,17 @@ import psycopg2
 from postdb import post_db
 from userMenu import user_menu
 from updateCsv import update_csv
+import os
 
 def validation_login(u_name,u_pass):
         post= post_db() # create a postdb object of the class post_db
         cur = None
         validity=False
         try:
-            print ("Attempting create a cursor")
+            #print ("Attempting create a cursor")
             cur = post.conn.cursor()
-            print ("Successfully made cursor")
-            print("Querying for login validation.")
+            #print ("Successfully made cursor")
+            #print("Querying for login validation.")
             cur.execute("SELECT username, pass FROM Users WHERE username = %s AND pass =%s",(u_name,u_pass)) #query for the username and password for validation
             if cur.rowcount == 1: # if that combination was found than rowcount would be 1
                 validity =True
@@ -21,11 +22,11 @@ def validation_login(u_name,u_pass):
             return False
         finally:
             if cur is not None:
-                print("Closing cursor")
+                #print("Closing cursor")
                 cur.close()
                 
             if post.conn is not None:
-                print("Closing database connection")
+                #print("Closing database connection")
                 post.conn.close()
             del post #cleanup of the post object
         return validity
@@ -42,6 +43,9 @@ while loop:
     valid_login=False
     valid_login=validation_login(username,password) #validate given login information
     if valid_login:
+        clear = lambda: os.system('clear')
+        clear()
+        del clear
         print("Successful Login. Proceeding to main menu.")
         menu=user_menu(username)
         menu.start()

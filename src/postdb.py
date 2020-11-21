@@ -5,14 +5,14 @@ class post_db:
         self.conn = None
         try:
             #connect to the postgresql db
-            print ("Attempting to create connection.")
+            #print ("Attempting to create connection.")
             self.conn = psycopg2.connect(
                 host="localhost",
                 database="impostergram_db",
                 user="team2",
                 password="179g"
             )
-            print ("Successfully made connection")
+            #print ("Successfully made connection")
             
 
             

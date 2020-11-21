@@ -7,24 +7,24 @@ class update_csv:
         self.cur=None
         self.conn_closed=False
         try:
-            print ("Attempting to make cursor")
+           # print ("Attempting to make cursor")
             self.cur = self.post.conn.cursor()
-            print ("Successfully created cursor")
+            #print ("Successfully created cursor")
         except (Exception,psycopg2.DatabaseError) as error:
             print(error)
             if self.cur is not None:
                 self.cur.close()
-                print("Closing cursor")
+             #   print("Closing cursor")
             if self.post.conn is not None:
                 self.post.conn.close()
             del self.post
-            print("Unexpected error. Returning to Main Menu.")
+            #print("Unexpected error. Returning to Main Menu.")
             self.conn_closed = True
     
     def close_connection(self):
         if self.cur is not None:
             self.cur.close()
-            print("Closing cursor in close function in dump")
+            #print("Closing cursor in close function in dump")
         if self.post.conn is not None:
             self.post.conn.close()     
         if self.post is not None:

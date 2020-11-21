@@ -8,18 +8,18 @@ class tagged:
         self.cur = None
         self.conn_closed = False
         try:
-            print ("Attempting to make cursor")
+            #print ("Attempting to make cursor")
             self.cur = self.post.conn.cursor()
-            print ("Successfully created cursor")
+            #print ("Successfully created cursor")
         except (Exception,psycopg2.DatabaseError) as error:
             print(error)
             if self.cur is not None:
                 self.cur.close()
-                print("Closing cursor")
+            #    print("Closing cursor")
             if self.post.conn is not None:
                 self.post.conn.close()
             del self.post
-            print("Returning to Main Menu.")
+            #print("Returning to Main Menu.")
             self.conn_closed = True
     
     """ def csv_export(self,tableName):
@@ -42,7 +42,7 @@ class tagged:
     def close_connection(self):
         if self.cur is not None:
             self.cur.close()
-            print("Closing cursor")
+            #print("Closing cursor")
         if self.post.conn is not None:
             self.post.conn.close()     
         if self.post is not None:
@@ -64,7 +64,7 @@ class tagged:
                         loop = False
                         if self.cur is not None:
                             self.cur.close()
-                            print("Closing cursor")
+                            #print("Closing cursor")
                         if self.post.conn is not None:
                             self.post.conn.close()     
                         del self.post   
@@ -82,7 +82,7 @@ class tagged:
                         print("Successfully tagged " + username)
                         if self.cur is not None:
                             self.cur.close()
-                            print("Closing cursor")
+             #               print("Closing cursor")
                         if self.post.conn is not None:
                             self.post.conn.close()
                             # print("Closing database connection")
@@ -93,7 +93,7 @@ class tagged:
                 print(error)
                 if self.cur is not None:
                     self.cur.close()
-                    print("Closing cursor")
+              #      print("Closing cursor")
                 if self.post.conn is not None:
                     self.post.conn.close()
                 del self.post
@@ -117,7 +117,7 @@ class tagged:
                         loop = False
                         if self.cur is not None:
                             self.cur.close()
-                            print("Closing cursor")
+                            #print("Closing cursor")
                         if self.post.conn is not None:
                             self.post.conn.close()     
                         del self.post    
@@ -136,7 +136,7 @@ class tagged:
                             print("Successfully untagged " + username)
                             if self.cur is not None:
                                 self.cur.close()
-                                print("Closing cursor")
+               #                 print("Closing cursor")
                             if self.post.conn is not None:
                                 self.post.conn.close()
                                 # print("Closing database connection")
@@ -147,7 +147,7 @@ class tagged:
                 print(error)
                 if self.cur is not None:
                     self.cur.close()
-                    print("Closing cursor")
+              #      print("Closing cursor")
                 if self.post.conn is not None:
                     self.post.conn.close()
                 del self.post
