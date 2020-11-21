@@ -3,6 +3,7 @@ import psycopg2
 from postdb import post_db
 from userMenu import user_menu
 from updateCsv import update_csv
+import os
 
 def validation_login(u_name,u_pass):
         post= post_db() # create a postdb object of the class post_db
@@ -42,6 +43,9 @@ while loop:
     valid_login=False
     valid_login=validation_login(username,password) #validate given login information
     if valid_login:
+        clear = lambda: os.system('clear')
+        clear()
+        del clear
         print("Successful Login. Proceeding to main menu.")
         menu=user_menu(username)
         menu.start()
