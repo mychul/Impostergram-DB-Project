@@ -2,7 +2,7 @@ import psycopg2
 from postdb import post_db
 class update_csv:
     def __init__(self):
-        self.tablename = ["Comments", "Follows", "Likes", "PhotoLikes", "Photos", "Tagged", "Views"]
+        self.tablename = ["Comments", "Follows", "Likes", "PhotoLikes", "Photos", "Tagged", "Views", "Users"]
         self.post= post_db()
         self.cur=None
         self.conn_closed=False
@@ -24,7 +24,7 @@ class update_csv:
     def close_connection(self):
         if self.cur is not None:
             self.cur.close()
-            print("Closing cursor in close function in search photo")
+            print("Closing cursor in close function in dump")
         if self.post.conn is not None:
             self.post.conn.close()     
         if self.post is not None:
