@@ -1,5 +1,6 @@
 import psycopg2
 from postdb import post_db
+from datetime import datetime
 
 class comment:
     def __init__(self, username, photo_id):
@@ -7,7 +8,8 @@ class comment:
         self.__username = username
         self.post = post_db()
         self.cur = None
-        self.flag = True
+        self.conn_closed = False # First flag that userMenu will check before
+        
         try:
             print ("Attempting to make cursor")
             self.cur = self.post.conn.cursor()
@@ -21,8 +23,26 @@ class comment:
                 self.post.conn.close()
             del self.post
             print("Returning to Main Menu.")
-            self.flag = False
+            self.conn_closed = True
     
+    def csv_export(self,tableName):
+        s = ""
+        s += "SELECT *"
+        s += " FROM "
+        s += tableName
+        s += ""
+
+        # Use the COPY function on the SQL we created above.
+        SQL_for_file_output = "COPY ({0}) TO STDOUT WITH CSV HEADER".format(s)
+        # Set up a variable to store our file path and name.
+        t_path_n_file = "/home/team2/Documents/CS179g/DynamicBackup/" + tableName + ".csv"
+        try:
+            with open(t_path_n_file, 'w') as f_output:
+                self.cur.copy_expert(SQL_for_file_output, f_output)
+        except (Exception,psycopg2.DatabaseError) as error:
+            print(error)
+
+
     def close_connection(self):
         if self.cur is not None:
             self.cur.close()
@@ -31,10 +51,10 @@ class comment:
             self.post.conn.close()     
         if self.post is not None:
             del self.post
+        self.conn_closed = True
    
     def commented(self):
         try:
-            comment_id = 0
             check = True
             while(check):
                 comment = input("Please enter your comment: ")
@@ -42,10 +62,14 @@ class comment:
                 if(choice == "Y" or choice == "y"):
                     check = False
                     self.cur.execute("SELECT MAX(comment_id) FROM Comments")
-                    comment_id = self.cur.fetchone()
-                    comment_id = comment_id + 1
-                    self.cur.execute("INSERT INTO Comments (comment_id, comments, username, photo_id) VALUES (%s, %s, %s, %s)", (comment_id, comment, self.__username, self.__photo_id))
+                    row = self.cur.fetchone()
+                    comment_id = int(row[0]) + 1
+                    now = datetime.now()
+                    # dd/mm/YY H:M:S
+                    #dt_string = now.strftime("%Y/%m/%d %H:%M:%S")
+                    self.cur.execute("INSERT INTO Comments (comment_id, comments, username, photo_id, dates) VALUES (%s, %s, %s, %s, %s)", [str(comment_id), comment, self.__username, self.__photo_id, now])
                     self.post.conn.commit()
+                    self.csv_export("Comments")
                     print("Successfully commented.")
                 elif(choice == 'N' or choice == 'n'):
                     check = True
@@ -55,17 +79,22 @@ class comment:
             print(error)
             if self.cur is not None:
                 self.cur.close()
-                print("Closing cursor")
+                print("Error: Closing cursor")
             if self.post.conn is not None:
                 self.post.conn.close()
-            del self.post
+            if self.post is not None:
+                del self.post
+            self.conn_closed = True
             return
         finally: 
-            if self.cur is not None:
-                self.cur.close()
-                print("Closing cursor")
-            if self.post.conn is not None:
-                self.post.conn.close()
-            del self.post
-            # print("Closing database connection")
+            if not self.conn_closed:
+                if self.cur is not None:
+                    self.cur.close()
+                    print("Closing cursor")
+                if self.post.conn is not None:
+                    self.post.conn.close()
+                if self.post is not None:
+                    del self.post
+                self.conn_closed = True
+                # print("Closing database connection")
         return

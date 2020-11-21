@@ -10,10 +10,10 @@ class search_photo:
         self.__username = username
         self.post = post_db()
         self.cur = None
-        self.flag = True
+        self.conn_closed = False
         try:
             print ("Attempting to make cursor")
-            self.cur = post.conn.cursor()
+            self.cur = self.post.conn.cursor()
             print ("Successfully created cursor")
         except (Exception,psycopg2.DatabaseError) as error:
             print(error)
@@ -24,16 +24,17 @@ class search_photo:
                 self.post.conn.close()
             del self.post
             print("Unexpected error. Returning to Main Menu.")
-            self.flag = False
+            self.conn_closed = True
     
     def close_connection(self):
         if self.cur is not None:
             self.cur.close()
-            print("Closing cursor")
+            print("Closing cursor in close function in search photo")
         if self.post.conn is not None:
             self.post.conn.close()     
         if self.post is not None:
             del self.post
+        self.conn_closed = True
    
     
     def menu(self):
@@ -48,39 +49,45 @@ class search_photo:
                     continue
                 elif(choice == "1"):
                     photoL = photo_likes(self.__username, pid)
-                    if photoL.flag:
+                    if not photoL.conn_closed:
                         photoL.likes()
-                        photoL.connection_close()
+                        if not photoL.conn_closed:
+                            photoL.close_connection()
                     del photoL
                 elif(choice == "2"):
                     photoU = photo_likes(self.__username, pid)
-                    if photoU.flag:
+                    if not photoU.conn_closed:
                         photoU.unlikes()
-                        photoU.connection_close()
+                        if not photoU.conn_closed:
+                            photoU.close_connection()
                     del photoU
                 elif(choice == "3"):
                     tag = tagged(pid)
-                    if tag.flag:
+                    if not tag.conn_closed:
                         tag.tag()
-                        tag.connection_close()
+                        if not tag.conn_closed:
+                            tag.close_connection()
                     del tag
                 elif(choice == "4"):
                     untag = tagged(pid)
-                    if untag.flag:
+                    if not untag.conn_closed:
                         untag.untag()
-                        untag.connection_close()
+                        if not untag.conn_closed:
+                            untag.close_connection()
                     del untag
                 elif(choice == "5"):
                     viewC = view_comments(pid, self.__username)
-                    if viewC.flag:
+                    if not viewC.conn_closed:
                         viewC.view()
-                        viewC.close_connection()
+                        if not viewC.conn_closed:
+                            viewC.close_connection()
                     del viewC
                 elif(choice == "6"):
                     newC = comment(self.__username, pid)
-                    if newC.flag:
+                    if not newC.conn_closed:
                         newC.commented()
-                        newC.close_connection()
+                        if not newC.conn_closed:
+                            newC.close_connection()
                     del newC
                 elif(choice == "7"):
                     pass
@@ -92,19 +99,22 @@ class search_photo:
             print(error)
             if self.cur is not None:
                 self.cur.close()
-                print("Closing cursor")
+                print("Error: Closing cursor")
             if self.post.conn is not None:
                 self.post.conn.close()
             if self.post is not None:
                 del self.post
+            self.conn_closed = True
             return
         finally: 
-            if self.cur is not None:
-                self.cur.close()
-                print("Closing cursor")
-            if self.post.conn is not None:
-                self.post.conn.close()
-            if self.post is not None:
-                del self.post
-            # print("Closing database connection")
+            if not self.conn_closed:
+                if self.cur is not None:
+                    self.cur.close()
+                    print("Closing cursor")
+                if self.post.conn is not None:
+                    self.post.conn.close()
+                if self.post is not None:
+                    del self.post
+                self.conn_closed = True
+                # print("Closing database connection")
         return
