@@ -42,8 +42,7 @@ class search_photo:
             loop = True
             while(loop):
                 pid = "p1" #TODO: write a photo search function and then call it here after display menu and giving the user a choice and update the view count
-                print("1 - Like the photo\n2 - Unlike the photo\n3 - Tag a user\n4 - Untag a user\n5 - View comments\n6 - Make a comment\n7 - Download the photo onto your local device")
-                choice = input("What would you like to do with this photo? (-1 to cancel): ")
+                choice = input("1. Like the photo\n2. Unlike the photo\n3. Tag a user\n4. Untag a user\n5. View comments\n6. Make a comment\n7. Download the photo onto your local device\nWhat would you like to do with this photo? (-1 to cancel): ")
                 if(choice == "-1"):
                     loop = False
                     continue
