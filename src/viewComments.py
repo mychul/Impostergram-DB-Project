@@ -36,7 +36,7 @@ class view_comments:
     
     def view(self):
         try:
-            self.cur.execute("SELECT comment_id, comments, username, dates FROM Comments WHERE photo_id = %s", [self.__photo_id])
+            self.cur.execute("SELECT comment_id, comments, username, dates, numLikes FROM Comments WHERE photo_id = %s", [self.__photo_id])
             all_comments = self.cur.fetchall()
             comment_ids = []
             for row in all_comments:
@@ -44,6 +44,7 @@ class view_comments:
                 print("comment = \"" + str(row[1]) + "\", ")
                 print("username = " + str(row[2]) + ", ")
                 print("date = " + str(row[3]) + "\n")
+                print("number of likes = " + str(row[4]))
                 comment_ids.append(row[0])
             choice = input("Would you like to \"Like\/Unlike\" a comment? (Y/N): ")
             if(choice == "Y" or choice == "y"):

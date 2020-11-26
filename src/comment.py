@@ -49,7 +49,7 @@ class comment:
                     now = datetime.now()
                     # dd/mm/YY H:M:S
                     #dt_string = now.strftime("%Y/%m/%d %H:%M:%S")
-                    self.cur.execute("INSERT INTO Comments (comment_id, comments, username, photo_id, dates) VALUES (%s, %s, %s, %s, %s)", [str(comment_id), comment, self.__username, self.__photo_id, now])
+                    self.cur.execute("INSERT INTO Comments (comment_id, comments, username, photo_id, dates, numLikes) VALUES (%s, %s, %s, %s, %s, %s)", [str(comment_id), comment, self.__username, self.__photo_id, now, str(0)])
                     self.post.conn.commit()
                     #self.csv_export("Comments")
                     print("Successfully commented.")
