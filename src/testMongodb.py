@@ -9,7 +9,7 @@ collection = db["Photos"] #specifies the photos collection
 fs = gridfs.GridFS(db) 
 
 print("opening test text")
-data1 = open("testFS.txt",'r')
+data1 = open("testFS.txt",'rb')
 print("putting text into db")
 txt_id=fs.put(data1,filename="testtxt")
 print("closing txt file")
@@ -18,7 +18,7 @@ print("saving txt id")
 out_data=fs.get(txt_id).read()
 
 print("opening output txt")
-output =open("txtresult.txt",'w')
+output =open("txtresult.txt",'wb')
 print("writing to outputtxt")
 output.write(out_data)
 print("closing file")
