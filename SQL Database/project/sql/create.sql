@@ -106,7 +106,8 @@ COPY Photos (
 	publisher,
 	dates,
 	privacy,
-	description	
+	description,
+	numLikes
 )
 FROM 'Photos.csv'
 WITH DELIMITER ',';
@@ -116,7 +117,8 @@ COPY Comments(
 	comments,
 	username,
 	photo_id,
-	dates
+	dates,
+	numLikes
 )
 FROM 'Comments.csv'
 WITH DELIMITER ',' NULL AS '';
