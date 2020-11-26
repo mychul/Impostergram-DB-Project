@@ -43,8 +43,8 @@ class view_comments:
                 print("comment_id = " + str(row[0]) + ", ")
                 print("comment = \"" + str(row[1]) + "\", ")
                 print("username = " + str(row[2]) + ", ")
-                print("date = " + str(row[3]) + "\n")
-                print("number of likes = " + str(row[4]))
+                print("date = " + str(row[3]))
+                print("number of likes = " + str(row[4]) + "\n")
                 comment_ids.append(row[0])
             choice = input("Would you like to \"Like\/Unlike\" a comment? (Y/N): ")
             if(choice == "Y" or choice == "y"):
