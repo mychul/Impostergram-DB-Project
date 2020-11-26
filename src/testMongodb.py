@@ -30,7 +30,7 @@ img_id=fs.put(data2,p_id="p1")
 data2.close()
 out_data=fs.get_version(p_id="p1").read()
 
-output=open("imgresult.png",'wb')
+output=open("imgresult.jpg",'wb')
 output.write(out_data)
 output.close
 
