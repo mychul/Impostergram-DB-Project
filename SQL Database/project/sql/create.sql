@@ -24,6 +24,7 @@ CREATE TABLE Photos
 	dates DATE NOT NULL,
 	privacy BIT NOT NULL,
 	description VARCHAR(512),
+	numLikes INT NOT NULL,
 	PRIMARY KEY(photo_id),
 	FOREIGN KEY(publisher) REFERENCES Users(username) ON DELETE CASCADE
 );
@@ -34,6 +35,7 @@ CREATE TABLE Comments
 	username VARCHAR(64) NOT NULL,
 	photo_id VARCHAR(64) NOT NULL,
 	dates DATE NOT NULL,
+	numLikes INT NOT NULL,
 	PRIMARY KEY(comment_id),
 	FOREIGN KEY(username) REFERENCES Users(username) ON DELETE CASCADE,
 	FOREIGN KEY(photo_id) REFERENCES Photos(photo_id) ON DELETE CASCADE
