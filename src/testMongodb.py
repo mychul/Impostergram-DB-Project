@@ -34,6 +34,8 @@ output=open("imgresult.jpg",'wb')
 output.write(out_data)
 output.close
 
+view=Image.open("imgresult.jpg")
+view.show()
 
 
 
