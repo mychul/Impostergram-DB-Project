@@ -10,15 +10,16 @@ collection = db["Photos"] #specifies the photos collection
 fs = gridfs.GridFS(db) 
 count=1
 path = "/home/team2/Documents/CS179g/project/python/src/Img"
-for filename in os.listdir(path):
+for filename in sorted(os.listdir(path)):
    with open(os.path.join(path, filename), 'rb') as f:
-       pid="p"+str(count)
-       img_id=fs.put(f,p_id=pid)
+      # debug #print(filename)
+      pid="p"+str(count)
+      img_id=fs.put(f,p_id=pid)
        
-       out_data=fs.get_version(p_id=pid)
-       result="result"+ str(count) +".jpg"
-       output=open(result,'wb')
-       output.write(out_data.read())
-       view = Image.open(result)
-       view.show
-       count=count+1
+      out_data=fs.get_version(p_id=pid)
+      result="result"+ str(count) +".jpg"
+      output=open(result,'wb')
+      output.write(out_data.read())
+      view = Image.open(result)
+      view.show
+      count=count+1
