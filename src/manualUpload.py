@@ -9,9 +9,9 @@ db = cluster["Impostergram"] #specifies the impostergram cluster
 collection = db["Photos"] #specifies the photos collection
 fs = gridfs.GridFS(db) 
 count=1
-
-for filename in os.listdir("/home/team2/Documents/CS179g/project/python/src/Img"):
-   with open(os.path.join("/home/team2/Documents/CS179g/project/python/src/Img", filename), 'rb') as f:
+path = "/home/team2/Documents/CS179g/project/python/src/Img"
+for filename in os.listdir(path):
+   with open(os.path.join(path, filename), 'rb') as f:
        pid="p"+str(count)
        img_id=fs.put(f,p_id=pid)
        
