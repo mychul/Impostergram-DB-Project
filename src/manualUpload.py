@@ -18,7 +18,7 @@ for filename in os.listdir(path):
        out_data=fs.get_version(p_id=pid)
        result="result"+ str(count) +".jpg"
        output=open(result,'wb')
-       output.write(out_data)
+       output.write(out_data.read())
        view = Image.open(result)
        view.show
        count=count+1
