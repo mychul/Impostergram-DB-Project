@@ -22,5 +22,5 @@ for filename in sorted(os.listdir(path)):
       output.write(out_data.read())
       output.close()
       view = Image.open(result)
-      view.show
+      view.show()
       count=count+1
