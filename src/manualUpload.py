@@ -20,6 +20,6 @@ for filename in sorted(os.listdir(path)):
       result="result"+ str(count) +".jpg"
       output=open(result,'wb')
       output.write(out_data.read())
-      view = Image.open(result)
-      view.show()
+      #view = Image.open(result)
+      #view.show()
       count=count+1
