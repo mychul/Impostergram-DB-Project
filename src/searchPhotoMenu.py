@@ -258,11 +258,11 @@ class search_photo:
         try:
             loop = True
             pid = self.photo_search()
+            view_checked = False
             clear = lambda: os.system('clear')
             clear()
             del clear
             while(loop):
-                
                 if(not pid == "-1"):
                     cluster = MongoClient("mongodb+srv://team2:179g@cluster0.fm94y.mongodb.net/Impostergram?retryWrites=true&w=majority") #connects to our mongodb server
                     db = cluster["Impostergram"] #specifies the impostergram cluster
@@ -275,9 +275,11 @@ class search_photo:
                     view = Image.open(path)
                     view.show()
 
-                    self.cur.execute("SELECT * FROM Views WHERE username = %s AND photo_id = %s", (self.__username, pid))
-                    if(self.cur.rowcount < 1):
-                        self.cur.execute("INSERT INTO Views (username, photo_id) VALUES (%s, %s)", (self.__username, pid))
+                    if not view_checked:
+                        self.cur.execute("SELECT * FROM Views WHERE username = %s AND photo_id = %s", (self.__username, pid))
+                        if(self.cur.rowcount < 1):
+                            self.cur.execute("INSERT INTO Views (username, photo_id) VALUES (%s, %s)", (self.__username, pid))
+                        view_checked = True
                     #the viewer will close 'view'
 
                 if(pid == "-1"):
