@@ -279,6 +279,7 @@ class search_photo:
                         self.cur.execute("SELECT * FROM Views WHERE username = %s AND photo_id = %s", (self.__username, pid))
                         if(self.cur.rowcount < 1):
                             self.cur.execute("INSERT INTO Views (username, photo_id) VALUES (%s, %s)", (self.__username, pid))
+                            self.post.conn.commit()
                         view_checked = True
                     #the viewer will close 'view'
 
