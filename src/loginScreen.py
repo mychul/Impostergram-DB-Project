@@ -36,7 +36,7 @@ print("Welcome to Impostergram\nPlease log in.")
 loop=True
 while loop:
     choice = input("Would you like to log in(1) or exit(2): ") 
-    if choice is not "1":
+    if choice != "1":
         break
     username=input("Username: ")
     password=input("Password: ")
