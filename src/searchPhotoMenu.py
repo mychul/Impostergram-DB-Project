@@ -275,6 +275,9 @@ class search_photo:
                     view = Image.open(path)
                     view.show()
 
+                    self.cur.execute("SELECT * FROM Views WHERE username = %s AND photo_id = %s", (self.__username, pid))
+                    if(self.cur.rowcount < 1):
+                        self.cur.execute("INSERT INTO Views (username, photo_id) VALUES (%s, %s)", (self.__username, pid))
                     #the viewer will close 'view'
 
                 if(pid == "-1"):
