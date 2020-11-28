@@ -10,6 +10,7 @@ from pymongo import MongoClient
 import gridfs
 from PIL import Image
 from download import download
+from upload import upload
 
 class search_photo:
     def __init__(self, username):
@@ -257,11 +258,10 @@ class search_photo:
         try:
             loop = True
             pid = self.photo_search()
+            clear = lambda: os.system('clear')
+            clear()
+            del clear
             while(loop):
-
-                clear = lambda: os.system('clear')
-                clear()
-                del clear
                 
                 if(not pid == "-1"):
                     cluster = MongoClient("mongodb+srv://team2:179g@cluster0.fm94y.mongodb.net/Impostergram?retryWrites=true&w=majority") #connects to our mongodb server
@@ -282,6 +282,9 @@ class search_photo:
                     loop = False
                     continue
                 choice = input("1. Like the photo\n2. Unlike the photo\n3. Tag a user\n4. Untag a user\n5. View comments\n6. Make a comment\n7. Download the photo onto your local device\nWhat would you like to do with this photo? (-1 to cancel): ")
+                clear = lambda: os.system('clear')
+                clear()
+                del clear
                 if(choice == "-1"):
                     loop = False
                     continue

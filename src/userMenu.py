@@ -3,6 +3,7 @@ from searchPhotoMenu import search_photo
 from userSearch import user_search
 from follows import follows
 import os 
+from upload import upload
 
 class user_menu:
     def __init__ (self,username):
@@ -23,7 +24,7 @@ class user_menu:
                     photo_menu.menu()
                     if not photo_menu.conn_closed: # If the user exits 
                         photo_menu.close_connection()
-                    print("Back Here in Main Menu in choice #1") #debug 
+                   # print("Back Here in Main Menu in choice #1") #debug 
                 del photo_menu
             elif choice == "2": # fufills functions requirment 2
                 user_search_menu = user_search(self.__username)
@@ -51,7 +52,11 @@ class user_menu:
             elif choice == "6":
                 print ("implement top")# fufills function requirement 10
             elif choice == "7":
-                print ("implement upload")# fufills function requirement 1a
+                # fufills function requirement 1a
+                up = upload(self.__username)
+                # if not up.conn_closed:
+                up.uploads()
+                del up
             elif choice == "8":
                 return
         return
