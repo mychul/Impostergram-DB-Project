@@ -25,6 +25,7 @@ CREATE TABLE Photos
 	privacy BIT NOT NULL,
 	description VARCHAR(512),
 	numLikes INT NOT NULL,
+	numViews INT NOT NULL,
 	PRIMARY KEY(photo_id),
 	FOREIGN KEY(publisher) REFERENCES Users(username) ON DELETE CASCADE
 );
@@ -107,7 +108,8 @@ COPY Photos (
 	dates,
 	privacy,
 	description,
-	numLikes
+	numLikes,
+	numViews
 )
 FROM 'Photos.csv'
 WITH DELIMITER ',';

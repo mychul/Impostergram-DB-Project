@@ -240,17 +240,17 @@ class search_photo:
                 del self.post
             self.conn_closed = True
             return
-        finally: 
-            if not self.conn_closed:
-                if self.cur is not None:
-                    self.cur.close()
-                   # print("Closing cursor")
-                if self.post.conn is not None:
-                    self.post.conn.close()
-                if self.post is not None:
-                    del self.post
-                self.conn_closed = True
-                # print("Closing database connection")
+        # finally: 
+        #     if not self.conn_closed:
+        #         if self.cur is not None:
+        #             self.cur.close()
+        #            # print("Closing cursor")
+        #         if self.post.conn is not None:
+        #             self.post.conn.close()
+        #         if self.post is not None:
+        #             del self.post
+        #         self.conn_closed = True
+        #         # print("Closing database connection")
         return pid_choice
 
 
@@ -277,6 +277,7 @@ class search_photo:
 
                     if not view_checked:
                         self.cur.execute("SELECT * FROM Views WHERE username = %s AND photo_id = %s", (self.__username, pid))
+                       #debug print(self.cur.rowcount)
                         if(self.cur.rowcount < 1):
                             self.cur.execute("INSERT INTO Views (username, photo_id) VALUES (%s, %s)", (self.__username, pid))
                             self.post.conn.commit()
@@ -286,6 +287,7 @@ class search_photo:
                 if(pid == "-1"):
                    # print("Returning to Main menu")
                     loop = False
+                    view.close()
                     continue
                 choice = input("1. Like the photo\n2. Unlike the photo\n3. Tag a user\n4. Untag a user\n5. View comments\n6. Make a comment\n7. Download the photo onto your local device\nWhat would you like to do with this photo? (-1 to cancel): ")
                 clear = lambda: os.system('clear')
