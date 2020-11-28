@@ -4,6 +4,7 @@ from userSearch import user_search
 from follows import follows
 import os 
 from upload import upload
+from top import top
 
 class user_menu:
     def __init__ (self,username):
@@ -49,8 +50,14 @@ class user_menu:
                 del unfollow
             elif choice == "5":# fufill function requirement 4
                 print ("implement feed")
-            elif choice == "6":
-                print ("implement top")# fufills function requirement 10
+                
+            elif choice == "6":# fufills function requirement 10
+                tp = top(self.__username)
+                if not tp.conn_closed:
+                    tp.display()
+                    if not tp.conn_closed:
+                        tp.close_connection()
+                del tp
             elif choice == "7":
                 # fufills function requirement 1a
                 up = upload(self.__username)

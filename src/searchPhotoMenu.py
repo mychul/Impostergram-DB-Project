@@ -48,7 +48,7 @@ class search_photo:
             pid_choice = "-1"
             loop = True
             while(loop):
-                print("1. Search by a tagged username\n2. Search by greater than # of likes\n3. Search by less than # of likes\n4. Search by a specific # of likes\n5. Search by exact date\n6. Search by range of dates\n7. Search by username")
+                print("1. Search by a tagged username\n2. Search by greater than # of likes\n3. Search by less than # of likes\n4. Search by a specific # of likes\n5. Search by exact date\n6. Search by range of dates\n7. Search by username\n8. View a specific photo")
                 select = input("Which option do you want to search by? (-1. To Exit): ")
 
                 # For clearing the screen after user choice
@@ -229,6 +229,13 @@ class search_photo:
                     else:
                         print("That username does not exist.")
                         continue
+                elif(select == "8"):
+                    choice_pid = input("Enter a photo_id: ")
+                    self.cur.execute("SELECT photo_id FROM Photos WHERE photo_id = %s", ([choice_pid]))
+                    if(self.cur.rowcount > 0):
+                        pass
+                    else:
+                        print("That photo_id does not exist.")
         except (Exception,psycopg2.DatabaseError) as error:
             print(error)
             if self.cur is not None:
@@ -287,7 +294,7 @@ class search_photo:
                 if(pid == "-1"):
                    # print("Returning to Main menu")
                     loop = False
-                    view.close()
+                   # view.close()
                     continue
                 choice = input("1. Like the photo\n2. Unlike the photo\n3. Tag a user\n4. Untag a user\n5. View comments\n6. Make a comment\n7. Download the photo onto your local device\nWhat would you like to do with this photo? (-1 to cancel): ")
                 clear = lambda: os.system('clear')
