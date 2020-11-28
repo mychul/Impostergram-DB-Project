@@ -5,6 +5,11 @@ from photoLikes import photo_likes
 from tagged import tagged
 from viewComments import view_comments
 from comment import comment
+import pymongo
+from pymongo import MongoClient
+import gridfs
+from PIL import Image
+from download import download
 
 class search_photo:
     def __init__(self, username):
@@ -259,7 +264,18 @@ class search_photo:
                 del clear
                 
                 if(not pid == "-1"):
-                    print(pid)
+                    cluster = MongoClient("mongodb+srv://team2:179g@cluster0.fm94y.mongodb.net/Impostergram?retryWrites=true&w=majority") #connects to our mongodb server
+                    db = cluster["Impostergram"] #specifies the impostergram cluster
+                    fs = gridfs.GridFS(db) 
+                    out_data=fs.get_version(p_id=pid)
+                    path = "/home/team2/Documents/CS179g/project/python/src/tmp/tmp.jpg"
+                    output = open(path,'wb')
+                    output.write(out_data.read())
+                    output.close()
+                    view = Image.open(path)
+                    view.show()
+
+                    #the viewer will close 'view'
 
                 if(pid == "-1"):
                    # print("Returning to Main menu")
@@ -312,7 +328,9 @@ class search_photo:
                             newC.close_connection()
                     del newC
                 elif(choice == "7"):
-                    pass
+                    dl = download(pid)
+                    dl.downloads()
+                    del dl
                 else:
                     print("Incorrect input.  Please choose -1 or 1 - 5.\n")
                     loop = True

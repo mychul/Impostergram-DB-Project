@@ -6,13 +6,12 @@ import os
 
 cluster = MongoClient("mongodb+srv://team2:179g@cluster0.fm94y.mongodb.net/Impostergram?retryWrites=true&w=majority") #connects to our mongodb server
 db = cluster["Impostergram"] #specifies the impostergram cluster
-collection = db["Photos"] #specifies the photos collection
 fs = gridfs.GridFS(db) 
 count=1
-path = "/home/team2/Documents/CS179g/project/python/src/Img"
+path = "/home/team2/Documents/CS179g/project/python/src/Downloads"
 for filename in sorted(os.listdir(path)):
    with open(os.path.join(path, filename), 'rb') as f:
-      # debug #print(filename)
+      #debug #print(filename)
       pid="p"+str(count)
       img_id=fs.put(f,p_id=pid)
        
@@ -20,6 +19,6 @@ for filename in sorted(os.listdir(path)):
       result="result"+ str(count) +".jpg"
       output=open(result,'wb')
       output.write(out_data.read())
-      #view = Image.open(result)
-      #view.show()
+      view = Image.open(result)
+      view.show()
       count=count+1
