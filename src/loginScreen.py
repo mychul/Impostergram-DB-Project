@@ -36,7 +36,7 @@ print("Welcome to Impostergram\nPlease log in.")
 loop=True
 while loop:
     choice = input("Would you like to log in(1) or exit(2): ") 
-    if choice == "2":
+    if choice is not "1":
         break
     username=input("Username: ")
     password=input("Password: ")
@@ -51,8 +51,7 @@ while loop:
         menu.start()
         del menu
     else:
-        print("Invalid information entered. Would you like to try again?")
-        con=input("(Y/N):")
+        con=input("Invalid information entered. Would you like to try again?(Y/N):")
         if con =="n" or con=="N" or con=="no" or con=="No":
             loop=False
 backup_choice=input("Save changes to dynamic backup? (Y/N): ")
