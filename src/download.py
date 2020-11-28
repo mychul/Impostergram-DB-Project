@@ -2,8 +2,7 @@ import pymongo
 from pymongo import MongoClient
 import gridfs
 import psycopg2
-import os.path 
-from os import path
+from pathlib import Path
 
 class download:
     def __init__(self, pid):
@@ -15,9 +14,10 @@ class download:
         fs = gridfs.GridFS(db) 
         filename = input("What would you like to name the file?: ")
         pathFile = "/home/team2/Documents/CS179g/project/python/src/Downloads/" + filename + ".jpg"
-        if not path.isFile(pathFile):
+        myFile = Path(pathFile)
+        if not myFile.is_file():
             out_data=fs.get_version(p_id=self.pid)
-            output=open(path,'wb')
+            output=open(pathFile,'wb')
             output.write(out_data.read())
             output.close()
             print("Download Successful.  Returning to photo menu.")
