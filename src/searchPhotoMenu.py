@@ -256,8 +256,8 @@ class search_photo:
     def menu(self):
         try:
             loop = True
+            pid = self.photo_search()
             while(loop):
-                pid = self.photo_search()
 
                 clear = lambda: os.system('clear')
                 clear()
@@ -337,14 +337,15 @@ class search_photo:
                     continue
         except (Exception,psycopg2.DatabaseError) as error:
             print(error)
-            if self.cur is not None:
-                self.cur.close()
-                #print("Error: Closing cursor")
-            if self.post.conn is not None:
-                self.post.conn.close()
-            if self.post is not None:
-                del self.post
-            self.conn_closed = True
+            if not self.conn_closed:
+                if self.cur is not None:
+                    self.cur.close()
+                    #print("Error: Closing cursor")
+                if self.post.conn is not None:
+                    self.post.conn.close()
+                if self.post is not None:
+                    del self.post
+                self.conn_closed = True
             return
         finally: 
             if not self.conn_closed:
