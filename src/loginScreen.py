@@ -51,7 +51,7 @@ while loop:
         menu.start()
         del menu
     else:
-        con=input("Invalid information entered. Would you like to try again?(Y/N):")
+        con=input("Invalid information entered. Would you like to try again?(Y/N): ")
         if con =="n" or con=="N" or con=="no" or con=="No":
             loop=False
 backup_choice=input("Save changes to dynamic backup? (Y/N): ")
