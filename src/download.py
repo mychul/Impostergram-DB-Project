@@ -14,8 +14,8 @@ class download:
         db = cluster["Impostergram"] #specifies the impostergram cluster
         fs = gridfs.GridFS(db) 
         filename = input("What would you like to name the file?: ")
-        path = "/home/team2/Documents/CS179g/project/python/src/Downloads/" + filename + ".jpg"
-        if not path.isFile(path):
+        pathFile = "/home/team2/Documents/CS179g/project/python/src/Downloads/" + filename + ".jpg"
+        if not path.isFile(pathFile):
             out_data=fs.get_version(p_id=self.pid)
             output=open(path,'wb')
             output.write(out_data.read())
