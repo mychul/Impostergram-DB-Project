@@ -54,8 +54,10 @@ class user_menu:
             elif choice == "7":
                 # fufills function requirement 1a
                 up = upload(self.__username)
-                # if not up.conn_closed:
-                up.uploads()
+                if not up.conn_closed:
+                    up.uploads()
+                    if not up.conn_closed:
+                        up.close_connection()
                 del up
             elif choice == "8":
                 return
