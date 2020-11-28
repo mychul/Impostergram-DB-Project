@@ -39,9 +39,9 @@ class top:
 
     def display(self):# displays top 5 users and photos
         #Ask the user to display top user by follows, top photo by views, top photo by likes.
-        while(True):
-            try:            
-                choice = input("What would you like to view?\n1. Top 5 Users\n2. Top 5 Photos by Views\n3. Top 5 Photos by likes\n-1 Return to main menu")
+        try:
+            while(True):            
+                choice = input("What would you like to view?\n1. Top 5 Users\n2. Top 5 Photos by Views\n3. Top 5 Photos by likes\n-1. Return to main menu\n")
                 if choice == "-1":
                     clear = lambda: os.system('clear')
                     clear()
@@ -68,28 +68,28 @@ class top:
                     for row in topphotolikes:
                         print("photo id: " + str(row[0]))
                         print("Number of likes: " + str(row[5]))
-            except (Exception,psycopg2.DatabaseError) as error:
-                print(error)
-                if not self.conn_closed:
-                    if self.cur is not None:
-                        self.cur.close()
-                        #print("Error: Closing cursor")
-                    if self.post.conn is not None:
-                        self.post.conn.close()
-                    if self.post is not None:
-                        del self.post
-                    self.conn_closed = True
-                    return
-            finally: 
-                if not self.conn_closed:
-                    if self.cur is not None:
-                        self.cur.close()
-                        #print("Closing cursor")
-                    if self.post.conn is not None:
-                        self.post.conn.close()
-                    if self.post is not None:
-                        del self.post
-                    self.conn_closed = True
-                    # print("Closing database connection")
+        except (Exception,psycopg2.DatabaseError) as error:
+            print(error)
+            if not self.conn_closed:
+                if self.cur is not None:
+                    self.cur.close()
+                    #print("Error: Closing cursor")
+                if self.post.conn is not None:
+                    self.post.conn.close()
+                if self.post is not None:
+                    del self.post
+                self.conn_closed = True
+                return
+        finally: 
+            if not self.conn_closed:
+                if self.cur is not None:
+                    self.cur.close()
+                #print("Closing cursor")
+                if self.post.conn is not None:
+                    self.post.conn.close()
+                if self.post is not None:
+                    del self.post
+                self.conn_closed = True
+                # print("Closing database connection")
 
-            
+        
