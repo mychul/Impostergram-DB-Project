@@ -50,7 +50,7 @@ class user_menu:
                 del unfollow
             elif choice == "5":# fufill function requirement 4
                 print ("implement feed")
-                
+
             elif choice == "6":# fufills function requirement 10
                 tp = top(self.__username)
                 if not tp.conn_closed:

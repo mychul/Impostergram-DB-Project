@@ -40,7 +40,8 @@ class top:
     def display(self):# displays top 5 users and photos
         #Ask the user to display top user by follows, top photo by views, top photo by likes.
         try:
-            while(True):            
+            while(True):
+                count = 1            
                 choice = input("What would you like to view?\n1. Top 5 Users\n2. Top 5 Photos by Views\n3. Top 5 Photos by likes\n-1. Return to main menu\n")
                 if choice == "-1":
                     clear = lambda: os.system('clear')
@@ -52,22 +53,27 @@ class top:
                     self.cur.execute("SELECT * from Users order by numFollows desc limit 5")
                     topusers=self.cur.fetchall()
                     for row in topusers:
-                        print("username: " + str(row[0]))
-                        print("Number of followers: " +str(row[3]))
+                        print("No." + str(count) + " username: " + str(row[0]))
+                        print("Number of followers: " +str(row[3]) + "\n")
+                        count = count +1
+                        
                 elif choice=="2": #top 5 photos by views
                     #SELECT * from Photos order by numViews desc limit 5
                     self.cur.execute("SELECT * from Photos order by numViews desc limit 5")
                     topphotoviews=self.cur.fetchall()
                     for row in topphotoviews:
-                        print("photo id: " + str(row[0]))
-                        print("Number of views: " + str(row[6]))
+                        print("No." + str(count) + " photo id: " + str(row[0]))
+                        print("Number of views: " + str(row[6]) + "\n")
+                        count = count +1
+
                 elif choice=="3": #top 5 photos  
                     #SELECT * from Photos order by numLikes desc limit 5
-                    self.cur.execute("SELECT * from Photos order by numViews desc limit 5")
+                    self.cur.execute("SELECT * from Photos order by numLikes desc limit 5")
                     topphotolikes=self.cur.fetchall()
                     for row in topphotolikes:
-                        print("photo id: " + str(row[0]))
-                        print("Number of likes: " + str(row[5]))
+                        print("No." + str(count) + " photo id: " + str(row[0]))
+                        print("Number of likes: " + str(row[5]) + "\n")
+                        count = count +1
         except (Exception,psycopg2.DatabaseError) as error:
             print(error)
             if not self.conn_closed:
