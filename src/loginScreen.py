@@ -59,6 +59,7 @@ def signup():
                     continue
                 cur.execute("INSERT INTO Users (username,email,pass,numFollows) VALUES (%s, %s, %s, %s)",(username,email,password,"0"))
                 post.conn.commit()
+                print("Successfully created an account! Returning to login screen.")
                 return
     except (Exception, psycopg2.DatabaseError) as error:
             print(error)
