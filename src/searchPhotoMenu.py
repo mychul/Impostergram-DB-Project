@@ -288,6 +288,8 @@ class search_photo:
                         if(self.cur.rowcount < 1):
                             self.cur.execute("INSERT INTO Views (username, photo_id) VALUES (%s, %s)", (self.__username, pid))
                             self.post.conn.commit()
+                            self.cur.execute("UPDATE Photos SET numViews = numViews + 1 WHERE photo_id = %s", ([pid]))
+                            self.post.conn.commit()
                         view_checked = True
                     #the viewer will close 'view'
 

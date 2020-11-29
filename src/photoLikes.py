@@ -59,6 +59,9 @@ class photo_likes:
                 self.cur.execute("INSERT INTO PhotoLikes (username, photo_id) VALUES (%s, %s)", (self.__username, self.__photo_id))            
                 print("Successfully liked the photo.")
                 self.post.conn.commit()
+                self.cur.execute("UPDATE Photos SET numLikes = numLikes + 1 WHERE photo_id = %s", ([self.__photo_id]))
+                self.post.conn.commit()
+               
                 #self.csv_export("PhotoLikes")
         except (Exception,psycopg2.DatabaseError) as error:
             print(error)
@@ -92,6 +95,8 @@ class photo_likes:
             elif self.cur.rowcount > 0:
                 self.cur.execute("DELETE FROM PhotoLikes WHERE username = %s AND photo_id = %s", (self.__username, self.__photo_id))            
                 print("Successfully unliked the photo.")
+                self.post.conn.commit()
+                self.cur.execute("UPDATE Photos SET numLikes = numLikes - 1 WHERE photo_id = %s",([self.__photo_id]))
                 self.post.conn.commit()
                 #self.csv_export("PhotoLikes")
         except (Exception,psycopg2.DatabaseError) as error:

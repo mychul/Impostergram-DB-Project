@@ -78,6 +78,8 @@ class follows:
                         self.cur.execute("INSERT INTO Follows(username1,username2) VALUES(%s, %s)", (self.__u_name1, u_name2))
                         self.post.conn.commit()
                         print("Success!")
+                        self.cur.execute("UPDATE Users SET numFollows = numFollows + 1 WHERE username = %s", ([u_name2]))
+                        self.post.conn.commit()
                         """ self.csv_export("Follows") """
                     validity = True
         except (Exception, psycopg2.DatabaseError) as error:
@@ -118,6 +120,8 @@ class follows:
                     if self.cur.rowcount <= 0:
                         print("You are already not following " + u_name2 + ".")
                     else:
+                        self.post.conn.commit()
+                        self.cur.execute("UPDATE Users SET numFollows = numFollows - 1 WHERE username = %s", ([u_name2]))
                         self.post.conn.commit()
                         print("Success!")
                         """ self.csv_export("Follows") """
