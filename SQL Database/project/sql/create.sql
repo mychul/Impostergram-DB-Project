@@ -90,7 +90,6 @@ CREATE TABLE Follows
 );
 
 --===================================================================
---Dummy CSV Files
 ----------------------------
 -- INSERT DATA STATEMENTS --
 ----------------------------
@@ -102,7 +101,8 @@ COPY Users (
 	numFollows
 )
 FROM 'Users.csv'
-WITH DELIMITER ',' NULL AS '';
+WITH DELIMITER ',' NULL AS ''
+CSV HEADER;
 
 COPY Photos (
 	photo_id,
@@ -114,7 +114,8 @@ COPY Photos (
 	numViews
 )
 FROM 'Photos.csv'
-WITH DELIMITER ',';
+WITH DELIMITER ','
+CSV HEADER;
 
 COPY Comments(
 	comment_id,
@@ -125,7 +126,8 @@ COPY Comments(
 	numLikes
 )
 FROM 'Comments.csv'
-WITH DELIMITER ',' NULL AS '';
+WITH DELIMITER ',' NULL AS ''
+CSV HEADER;
 
 
 
@@ -137,33 +139,38 @@ COPY Views (
 	photo_id
 )
 FROM 'Views.csv'
-WITH DELIMITER ',';
+WITH DELIMITER ','
+CSV HEADER;
 
 COPY PhotoLikes(
 	username,
 	photo_id
 )
 FROM 'PhotoLikes.csv'
-WITH DELIMITER ',';
+WITH DELIMITER ','
+CSV HEADER;
 
 COPY Tagged(
 	username,
 	photo_id
 )
 FROM 'Tagged.csv'
-WITH DELIMITER ',';
+WITH DELIMITER ','
+CSV HEADER;
 
 COPY Likes (
 	username,
 	comment_id
 )
 FROM 'Likes.csv'
-WITH DELIMITER ',';
+WITH DELIMITER ','
+CSV HEADER;
 
 COPY Follows(
 	username1,
 	username2
 )
 FROM 'Follows.csv'
-WITH DELIMITER ',';
+WITH DELIMITER ','
+CSV HEADER;
 
