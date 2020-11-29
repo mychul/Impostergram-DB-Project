@@ -37,7 +37,7 @@ def signup():
         cur = None
         cur = post.conn.cursor()
         while (True):
-            username = input("Enter your desired username(-1 to cancel):")
+            username = input("Enter your desired username(-1 to cancel): ")
             cur.execute("SELECT username FROM Users WHERE username = %s",([username]))
             if cur.rowcount == 1:
                 print("Sorry this username already exists. Please try again.")
@@ -45,16 +45,20 @@ def signup():
             elif username == "-1":
                 return
             else:
-                password = input("Enter your desired password(-1 to cancel):")
+                password = input("Enter your desired password(-1 to cancel): ")
                 if password == "-1":
                     return
-                confirm_pass=input("Enter your desired password again to confirm:")
+                confirm_pass=input("Enter your desired password again to confirm: ")
                 if password != confirm_pass:
                     print("Password do not match. Please try again")
                     continue
-                email = input("Enter your email(-1 to cancel):")
+                email = input("Enter your desired email(-1 to cancel): ")
+                confirm_email=input("Enter your desired email again to confirm: ")
+                if email != confirm_email:
+                    print("Emails do not match. Please try again")
+                    continue
                 cur.execute("INSERT INTO Users (username,email,pass,numFollows) VALUES (%s, %s, %s, %s)",(username,email,password,"0"))
-                cur.commit()
+                post.conn.commit()
                 return
     except (Exception, psycopg2.DatabaseError) as error:
             print(error)
