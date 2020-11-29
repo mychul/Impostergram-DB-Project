@@ -5,6 +5,7 @@ from follows import follows
 import os 
 from upload import upload
 from top import top
+from feed import feed
 
 class user_menu:
     def __init__ (self,username):
@@ -49,7 +50,12 @@ class user_menu:
                         unfollow.close_connection()
                 del unfollow
             elif choice == "5":# fufill function requirement 4
-                print ("implement feed")
+                fd = feed(self.__username)
+                if not fd.conn_closed:
+                    fd.display()
+                    if not fd.conn_closed:
+                        fd.close_connection()
+                del fd
 
             elif choice == "6":# fufills function requirement 10
                 tp = top(self.__username)

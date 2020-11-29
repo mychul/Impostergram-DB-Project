@@ -233,7 +233,7 @@ class search_photo:
                     choice_pid = input("Enter a photo_id: ")
                     self.cur.execute("SELECT photo_id FROM Photos WHERE photo_id = %s", ([choice_pid]))
                     if(self.cur.rowcount > 0):
-                        pass
+                        return choice_pid
                     else:
                         print("That photo_id does not exist.")
         except (Exception,psycopg2.DatabaseError) as error:
@@ -298,7 +298,7 @@ class search_photo:
                     loop = False
                    # view.close()
                     continue
-                choice = input("1. Like the photo\n2. Unlike the photo\n3. Tag a user\n4. Untag a user\n5. View comments\n6. Make a comment\n7. Download the photo onto your local device\nWhat would you like to do with this photo? (-1 to cancel): ")
+                choice = input("1. Like the photo\n2. Unlike the photo\n3. Tag a user\n4. Untag a user\n5. View comments\n6. Make a comment\n7. Download the photo onto your local device\n-1 to cancel\nWhat would you like to do with this photo?: ")
                 clear = lambda: os.system('clear')
                 clear()
                 del clear
