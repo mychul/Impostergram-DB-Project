@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS Tagged;
 DROP TABLE IF EXISTS CommentLikes;
 DROP TABLE IF EXISTS Follows;
 
---------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------
 
 --Entities Tables:
 CREATE TABLE Users
