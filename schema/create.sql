@@ -15,6 +15,7 @@ CREATE TABLE Users
 	username VARCHAR(64) NOT NULL,
 	email VARCHAR(64),
 	pass VARCHAR(64) NOT NULL,  
+	numFollows BIGINT NOT NULL,
 	PRIMARY KEY (username)
 );
 CREATE TABLE Photos
@@ -24,7 +25,8 @@ CREATE TABLE Photos
 	dates DATE NOT NULL,
 	privacy BIT NOT NULL,
 	description VARCHAR(512),
-	numLikes INT NOT NULL,
+	numLikes BIGINT NOT NULL,
+	numViews BIGINT NOT NULL,
 	PRIMARY KEY(photo_id),
 	FOREIGN KEY(publisher) REFERENCES Users(username) ON DELETE CASCADE
 );
@@ -35,7 +37,7 @@ CREATE TABLE Comments
 	username VARCHAR(64) NOT NULL,
 	photo_id VARCHAR(64) NOT NULL,
 	dates DATE NOT NULL,
-	numLikes INT NOT NULL,
+	numLikes BIGINT NOT NULL,
 	PRIMARY KEY(comment_id),
 	FOREIGN KEY(username) REFERENCES Users(username) ON DELETE CASCADE,
 	FOREIGN KEY(photo_id) REFERENCES Photos(photo_id) ON DELETE CASCADE
@@ -88,7 +90,6 @@ CREATE TABLE Follows
 );
 
 --===================================================================
---Dummy CSV Files
 ----------------------------
 -- INSERT DATA STATEMENTS --
 ----------------------------
@@ -96,10 +97,12 @@ CREATE TABLE Follows
 COPY Users (
 	username,
 	email,
-	pass
+	pass,
+	numFollows
 )
 FROM 'Users.csv'
-WITH DELIMITER ',' NULL AS '';
+WITH DELIMITER ',' NULL AS ''
+CSV HEADER;
 
 COPY Photos (
 	photo_id,
@@ -107,10 +110,12 @@ COPY Photos (
 	dates,
 	privacy,
 	description,
-	numLikes
+	numLikes,
+	numViews
 )
 FROM 'Photos.csv'
-WITH DELIMITER ',';
+WITH DELIMITER ','
+CSV HEADER;
 
 COPY Comments(
 	comment_id,
@@ -121,7 +126,8 @@ COPY Comments(
 	numLikes
 )
 FROM 'Comments.csv'
-WITH DELIMITER ',' NULL AS '';
+WITH DELIMITER ',' NULL AS ''
+CSV HEADER;
 
 
 
@@ -133,33 +139,38 @@ COPY Views (
 	photo_id
 )
 FROM 'Views.csv'
-WITH DELIMITER ',';
+WITH DELIMITER ','
+CSV HEADER;
 
 COPY PhotoLikes(
 	username,
 	photo_id
 )
 FROM 'PhotoLikes.csv'
-WITH DELIMITER ',';
+WITH DELIMITER ','
+CSV HEADER;
 
 COPY Tagged(
 	username,
 	photo_id
 )
 FROM 'Tagged.csv'
-WITH DELIMITER ',';
+WITH DELIMITER ','
+CSV HEADER;
 
 COPY Likes (
 	username,
 	comment_id
 )
 FROM 'Likes.csv'
-WITH DELIMITER ',';
+WITH DELIMITER ','
+CSV HEADER;
 
 COPY Follows(
 	username1,
 	username2
 )
 FROM 'Follows.csv'
-WITH DELIMITER ',';
+WITH DELIMITER ','
+CSV HEADER;
 

@@ -44,8 +44,6 @@ class upload:
             pathFile = "/home/team2/Documents/CS179g/project/python/src/Uploads/" + filename + ".jpg"
             myFile = Path(pathFile)
             if(myFile.is_file()):
-                numLikes = 0
-                numViews = 0
                 description = input("Please enter a description: ")
                 now = datetime.now()
                 cluster = MongoClient("mongodb+srv://team2:179g@cluster0.fm94y.mongodb.net/Impostergram?retryWrites=true&w=majority") #connects to our mongodb server
@@ -54,7 +52,7 @@ class upload:
                 count = collection.count_documents({})
                 count = count + 1
                 pid = "p" + str(count)
-                self.cur.execute("INSERT INTO Photos (photo_id, publisher, dates, privacy, description, numLikes, numViews) VALUES (%s, %s, %s, %s, %s, %s, %s)", (pid, self.username, now, str(0), description, str(numLikes)))
+                self.cur.execute("INSERT INTO Photos (photo_id, publisher, dates, privacy, description, numLikes, numViews) VALUES (%s, %s, %s, %s, %s, %s, %s)", (pid, self.username, now, str(0), description, str(0), str(0)))
                 self.post.conn.commit()
                 fs = gridfs.GridFS(db) 
                 f = open(pathFile, 'rb')
