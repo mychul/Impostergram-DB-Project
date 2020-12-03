@@ -75,7 +75,9 @@ def signup():
         del post #cleanup of the post object
 
     
-
+clear = lambda: os.system('clear')
+clear()
+del clear
 #starting point
 print("Welcome to Impostergram")
 loop=True
