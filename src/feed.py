@@ -44,6 +44,9 @@ class feed:
             followedusers=self.cur.fetchall()    
             while(True):  
                 choice = input("Sort your feed by: \n1. Views\n2. Likes\n-1. Return to main menu\n")
+                clear = lambda: os.system('clear')
+                clear()
+                del clear
                 
                 if choice == "-1":
                     clear = lambda: os.system('clear')

@@ -43,6 +43,9 @@ class top:
             while(True):
                 count = 1            
                 choice = input("What would you like to view?\n1. Top 5 Users\n2. Top 5 Photos by Views\n3. Top 5 Photos by likes\n-1. Return to main menu\n")
+                clear = lambda: os.system('clear')
+                clear()
+                del clear
                 if choice == "-1":
                     clear = lambda: os.system('clear')
                     clear()
