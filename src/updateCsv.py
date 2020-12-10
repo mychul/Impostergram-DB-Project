@@ -32,16 +32,16 @@ class update_csv:
         self.conn_closed = True
 
     def csv_export(self,):
-        print("Function csv_export has been called.  Executing update...")
+        #print("Function csv_export has been called.  Executing update...")
         for x in self.tablename:    
             s = ""
             s += "SELECT *"
             s += " FROM "
-            print(x)
+            #print(x)
             s += x
             s += ""
 
-            print(s)
+            #print(s)
 
             # Use the COPY function on the SQL we created above.
             SQL_for_file_output = "COPY ({0}) TO STDOUT WITH CSV HEADER".format(s)
@@ -52,5 +52,5 @@ class update_csv:
                     self.cur.copy_expert(SQL_for_file_output, f_output)
             except (Exception,psycopg2.DatabaseError) as error:
                 print(error)
-        print("Updated data files in DynamicBackup folder successfully")
+        #print("Updated data files in DynamicBackup folder successfully")
         return   
