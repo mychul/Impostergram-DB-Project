@@ -104,13 +104,13 @@ while loop:
                 loop=False
     elif choice == "2":
         signup()
-backup_choice=input("Save changes to dynamic backup? (Y/N): ")
-if backup_choice == "Y" or backup_choice== "y":
-    dump= update_csv()
+
+dump= update_csv()
+if not dump.conn_closed:
+    dump.csv_export()
     if not dump.conn_closed:
-        dump.csv_export()
-        if not dump.conn_closed:
-            dump.close_connection()
+        dump.close_connection()
+        
 print("GoodBye")
 
 
