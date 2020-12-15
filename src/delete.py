@@ -47,7 +47,7 @@ class delete:
             if self.cur.rowcount>0:
                 print("Found photo id:" +str(target))
                 self.cur.execute("DELETE FROM Photos WHERE photo_id = %s",[target])
-                self.conn.commit()
+                self.post.conn.commit()
                 cluster = MongoClient("mongodb+srv://team2:179g@cluster0.fm94y.mongodb.net/Impostergram?retryWrites=true&w=majority") #connects to our mongodb server
                 db = cluster["Impostergram"]
                 fs = gridfs.GridFS(db)
