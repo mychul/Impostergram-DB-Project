@@ -6,6 +6,7 @@ import os
 from upload import upload
 from top import top
 from feed import feed
+from delete import delete
 
 class user_menu:
     def __init__ (self,username):
@@ -14,7 +15,7 @@ class user_menu:
     def start(self):
         print("Hello",(self.__username))
         while(True):
-            choice = input("Main Menu: \n1. Search for a Photo \n2. Search for a user \n3. Follow a User \n4. Unfollow a User \n5. View your feed\n6. View Top Posts \n7. Upload a photo \n8. Logout\n")
+            choice = input("Main Menu: \n1. Search for a Photo \n2. Search for a user \n3. Follow a User \n4. Unfollow a User \n5. View your feed\n6. View Top Posts \n7. Upload a photo \n8. Delete\n9. Logout\n")
             # For clearing the screen after user choice
             clear = lambda: os.system('clear')
             clear()
@@ -73,6 +74,14 @@ class user_menu:
                         up.close_connection()
                 del up
             elif choice == "8":
+                # fufills function requirement 1a
+                target = delete(self.__username)
+                if not up.conn_closed:
+                    target.delete()
+                    if not up.conn_closed:
+                        target.close_connection()
+                del target
+            elif choice == "9":
                 return
         return
 

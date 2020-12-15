@@ -40,7 +40,9 @@ class delete:
 
     def delete(self):
         try: 
-            target = input("What is the id of the photo you wish to delete")
+            target = input("What is the id of the photo you wish to delete. -1 to cancel")
+            if input == "-1":
+                return
             self.cur.execute("SELECT photo_id FROM Photos WHERE photo_id = %s AND publisher = %s",(target,self.username))
             if self.cur.rowcount>0:
                 print("Found photo id:" +str(target))
@@ -52,6 +54,7 @@ class delete:
                 fs.delete(p_id=target)
             else:
                 print("Photo id:"+str(target)+" was not found or is not owned by you.")
+                return
         except (Exception,psycopg2.DatabaseError) as error:
             print(error)
             if not self.conn_closed:
