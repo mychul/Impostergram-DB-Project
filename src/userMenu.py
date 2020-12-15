@@ -76,9 +76,9 @@ class user_menu:
             elif choice == "8":
                 # fufills function requirement 1a
                 target = delete(self.__username)
-                if not up.conn_closed:
+                if not target.conn_closed:
                     target.delete()
-                    if not up.conn_closed:
+                    if not target.conn_closed:
                         target.close_connection()
                 del target
             elif choice == "9":
