@@ -40,14 +40,14 @@ class delete:
 
     def delete(self):
         try: 
-            target = input("What is the id of the photo you wish to delete. -1 to cancel")
+            target = input("What is the id of the photo you wish to delete. (-1 to cancel): ")
             if input == "-1":
                 return
             self.cur.execute("SELECT photo_id FROM Photos WHERE photo_id = %s AND publisher = %s",(target,self.username))
             if self.cur.rowcount>0:
                 print("Found photo id:" +str(target))
                 self.cur.execute("DELETE FROM Photos WHERE photo_id = %s",[target])
-                self.cur.commit()
+                self.conn.commit()
                 cluster = MongoClient("mongodb+srv://team2:179g@cluster0.fm94y.mongodb.net/Impostergram?retryWrites=true&w=majority") #connects to our mongodb server
                 db = cluster["Impostergram"]
                 fs = gridfs.GridFS(db)
