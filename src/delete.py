@@ -45,14 +45,16 @@ class delete:
                 return
             self.cur.execute("SELECT photo_id FROM Photos WHERE photo_id = %s AND publisher = %s",(target,self.username))
             if self.cur.rowcount>0:
-                print("Found photo id:" +str(target))
+                print("Found photo id: " +str(target))
                 self.cur.execute("DELETE FROM Photos WHERE photo_id = %s",[target])
                 self.post.conn.commit()
                 cluster = MongoClient("mongodb+srv://team2:179g@cluster0.fm94y.mongodb.net/Impostergram?retryWrites=true&w=majority") #connects to our mongodb server
                 db = cluster["Impostergram"]
+                col=db["fs.files"]
                 fs = gridfs.GridFS(db)
-                result= fs.find_one({"p_id":target})
+                result= col.find_one({"p_id":target})
                 id=result['_id']
+                #print(id)
                 fs.delete(id)
             else:
                 print("Photo id: "+str(target)+" was not found or is not owned by you.")
