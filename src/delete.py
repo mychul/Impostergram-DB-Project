@@ -51,9 +51,11 @@ class delete:
                 cluster = MongoClient("mongodb+srv://team2:179g@cluster0.fm94y.mongodb.net/Impostergram?retryWrites=true&w=majority") #connects to our mongodb server
                 db = cluster["Impostergram"]
                 fs = gridfs.GridFS(db)
-                fs.delete(p_id=target)
+                result= fs.find_one({"p_id":target})
+                id=result['_id']
+                fs.delete(id)
             else:
-                print("Photo id:"+str(target)+" was not found or is not owned by you.")
+                print("Photo id: "+str(target)+" was not found or is not owned by you.")
                 return
         except (Exception,psycopg2.DatabaseError) as error:
             print(error)
