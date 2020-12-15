@@ -38,7 +38,7 @@ class delete:
             del self.post
         self.conn_closed = True
 
-    def uploads(self):
+    def delete(self):
         try: 
             print          
         except (Exception,psycopg2.DatabaseError) as error:
